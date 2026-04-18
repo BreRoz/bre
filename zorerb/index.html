@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zorerb - Artist Portfolio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', 'Garamond', serif;
+            background-color: #f5f1ed;
+            color: #2a2a2a;
+            line-height: 1.6;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(180deg, #f5f1ed 0%, #ebe7e1 100%);
+            padding: 80px 40px;
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .hero h1 {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            font-size: 96px;
+            font-weight: 900;
+            color: #c41e3a;
+            letter-spacing: 8px;
+            margin-bottom: 30px;
+            text-transform: uppercase;
+        }
+
+        .bio {
+            max-width: 700px;
+            margin: 0 auto;
+            font-size: 18px;
+            line-height: 1.8;
+            color: #4a4a4a;
+            font-style: italic;
+        }
+
+        /* Grid Container */
+        .gallery-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 40px 80px;
+        }
+
+        .masonry-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            grid-auto-rows: auto;
+        }
+
+        .artwork-tile {
+            position: relative;
+            overflow: hidden;
+            border-radius: 4px;
+            cursor: pointer;
+            background: #ddd;
+            aspect-ratio: 1;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .artwork-tile:hover {
+            transform: scale(1.02);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+        }
+
+        .artwork-tile img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            border-radius: 12px;
+            transform: scale(1.05);
+        }
+
+        /* Varied sizes using nth-child */
+        .artwork-tile:nth-child(1) {
+            grid-column: span 2;
+            grid-row: span 2;
+        }
+
+        .artwork-tile:nth-child(3) {
+            grid-column: span 1;
+            grid-row: span 2;
+        }
+
+        .artwork-tile:nth-child(7) {
+            grid-column: span 2;
+        }
+
+        .artwork-tile:nth-child(11) {
+            grid-column: span 2;
+            grid-row: span 2;
+        }
+
+        .artwork-tile:nth-child(15) {
+            grid-column: span 2;
+        }
+
+        /* Lightbox */
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.85);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            padding: 40px;
+        }
+
+        .lightbox.active {
+            display: flex;
+        }
+
+        .lightbox-content {
+            background: #f5f1ed;
+            border-radius: 4px;
+            max-width: 900px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            padding: 40px;
+        }
+
+        .lightbox-image {
+            width: 100%;
+            height: auto;
+            border-radius: 4px;
+        }
+
+        .lightbox-details {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+        }
+
+        .lightbox-details h2 {
+            font-size: 32px;
+            margin-bottom: 20px;
+            color: #2a2a2a;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        }
+
+        .lightbox-details p {
+            font-size: 16px;
+            margin-bottom: 15px;
+            color: #4a4a4a;
+            line-height: 1.7;
+        }
+
+        .lightbox-spec {
+            font-weight: bold;
+            color: #2a2a2a;
+            margin-bottom: 8px;
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 36px;
+            color: #fff;
+            cursor: pointer;
+            background: none;
+            border: none;
+            line-height: 1;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.2s;
+        }
+
+        .lightbox-close:hover {
+            opacity: 0.7;
+        }
+
+        /* Contact Footer */
+        .contact {
+            text-align: center;
+            padding: 60px 40px;
+            background: #ebe7e1;
+            margin-top: 80px;
+        }
+
+        .contact h3 {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #2a2a2a;
+        }
+
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .contact-links a {
+            color: #c41e3a;
+            text-decoration: none;
+            font-weight: bold;
+            transition: opacity 0.2s;
+        }
+
+        .contact-links a:hover {
+            opacity: 0.7;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 48px;
+            }
+
+            .masonry-grid {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+                gap: 15px;
+            }
+
+            .artwork-tile:nth-child(1),
+            .artwork-tile:nth-child(7),
+            .artwork-tile:nth-child(11),
+            .artwork-tile:nth-child(15) {
+                grid-column: span 1;
+            }
+
+            .artwork-tile:nth-child(3) {
+                grid-row: span 1;
+            }
+
+            .lightbox-content {
+                grid-template-columns: 1fr;
+                gap: 20px;
+                padding: 20px;
+            }
+
+            .hero {
+                padding: 40px 20px;
+                margin-bottom: 30px;
+            }
+
+            .gallery-container {
+                padding: 0 20px 40px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>ZORERB</h1>
+        <p class="bio">From personified fears to the geopolitical grotesque, my paintings unravel the fragile seams of power, memory, and reality itself. They whisper of a world where control tightens, history distorts, and the uncanny becomes commonplace—a mirror not only to our present but to a dystopian future that may already be unfolding.</p>
+    </section>
+
+    <!-- Gallery -->
+    <section class="gallery-container">
+        <div class="masonry-grid" id="gallery">
+            <!-- Artworks will be populated here -->
+        </div>
+    </section>
+
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox">
+        <button class="lightbox-close" onclick="closeLightbox()">&times;</button>
+        <div class="lightbox-content">
+            <img class="lightbox-image" id="lightboxImage" src="" alt="">
+            <div class="lightbox-details">
+                <h2 id="lightboxTitle"></h2>
+                <p id="lightboxDescription"></p>
+                <p class="lightbox-spec" id="lightboxMedium"></p>
+                <p class="lightbox-spec" id="lightboxSize"></p>
+                <p class="lightbox-spec" id="lightboxDate"></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contact -->
+    <footer class="contact">
+        <h3>Get in touch</h3>
+        <div class="contact-links">
+            <a href="mailto:zorerb@gmail.com">Email</a>
+            <a href="https://zorerb.artstation.com" target="_blank">ArtStation</a>
+            <a href="https://www.tiktok.com/@chiknpox" target="_blank">TikTok</a>
+            <a href="https://bsky.app/profile/zorerb.bsky.social" target="_blank">Bluesky</a>
+        </div>
+    </footer>
+
+    <script>
+        const artworks = [
+            {
+                title: "Billionaire's Ark (V2)",
+                image: "uploads/Billionaire's Ark (V2)-2.png",
+                medium: "Oil on canvas",
+                size: '12" × 12"',
+                date: "March 2025",
+                description: ""
+            },
+            {
+                title: "Stars, Stripes, and Sticker Prices",
+                image: "uploads/StarsStripesandSticker Prices-3.png",
+                medium: "Oil on canvas",
+                size: '12" × 12"',
+                date: "March 2025",
+                description: ""
+            },
+            {
+                title: "A Request",
+                image: "uploads/A Request-2.png",
+                medium: "Oil on canvas",
+                size: '12" × 12"',
+                date: "March 2025 (WIP)",
+                description: ""
+            },
+            {
+                title: "From Power, to Plates",
+                image: "uploads/From Power, to Plates-2.jpeg",
+                medium: "Oil on canvas",
+                size: '12" × 12"',
+                date: "March 2025",
+                description: ""
+            },
+            {
+                title: "Billionaire's Ark (V1)",
+                image: "uploads/Billionaire's Ark (V1)-2.png",
+                medium: "Oil on canvas",
+                size: '11" × 14"',
+                date: "March 2025",
+                description: ""
+            },
+            {
+                title: "No Foreign War Needed",
+                image: "uploads/No Foreign War Needed-2.png",
+                medium: "Oil on canvas",
+                size: '11" × 14"',
+                date: "March 2025",
+                description: ""
+            },
+            {
+                title: "Back Where You Belong?",
+                image: "uploads/Back Where You Belong.png",
+                medium: "Oil on canvas",
+                size: '11" × 14"',
+                date: "March 2025",
+                description: ""
+            },
+            {
+                title: "Last Light of Liberty",
+                image: "uploads/Last Light of Liberty-2.png",
+                medium: "Oil on paper",
+                size: '11" × 15"',
+                date: "March 2025",
+                description: ""
+            },
+            {
+                title: "Balance in Chaos",
+                image: "uploads/Balance in Chaos-2.png",
+                medium: "Oil on paper",
+                size: '11" × 15"',
+                date: "February 2025",
+                description: ""
+            },
+            {
+                title: "Oizys",
+                image: "uploads/Oizys-2.png",
+                medium: "Oil on canvas",
+                size: '5" × 7"',
+                date: "February 2025",
+                description: "Oizys is the Greek goddess of misery, suffering, anxiety, and depression."
+            },
+            {
+                title: "Samsara",
+                image: "uploads/Samsara-2.png",
+                medium: "Oil on paper",
+                size: '11" × 15"',
+                date: "February 2025",
+                description: "Samsara is a concept from Hinduism, Buddhism, and Jainism that refers to the cycle of birth, death, and rebirth—essentially the endless cycle of suffering and existence."
+            },
+            {
+                title: "Stuck in Time",
+                image: "uploads/Stuck in Time-2.png",
+                medium: "Oil on paper",
+                size: '11" × 15"',
+                date: "February 2025",
+                description: ""
+            },
+            {
+                title: "Eulogy for an Ideal",
+                image: "uploads/Eulogy for an Ideal-2.jpg",
+                medium: "Acrylic marker on paper",
+                size: '11" × 15"',
+                date: "January 2025",
+                description: ""
+            },
+            {
+                title: "Sipping on Empire",
+                image: "uploads/Sipping on Empire-2.jpg",
+                medium: "Acrylic marker on canvas",
+                size: '24" × 36"',
+                date: "January 2025 (Incomplete)",
+                description: ""
+            },
+            {
+                title: "The Last Broadcast",
+                image: "uploads/The Last Broadcast-2.jpg",
+                medium: "Acrylic marker on canvas",
+                size: '24" × 36"',
+                date: "January 2025",
+                description: ""
+            },
+            {
+                title: "Worry is Worship",
+                image: "uploads/Worry is worship-3.jpg",
+                medium: "Acrylic marker on paper",
+                size: '11" × 15"',
+                date: "January 2025",
+                description: ""
+            },
+            {
+                title: "Warren Piece",
+                image: "uploads/Warren Piece-2.png",
+                medium: "Acrylic marker on canvas",
+                size: "Dimensions not specified",
+                date: "2023",
+                description: ""
+            },
+            {
+                title: "Echo Chamber of Dread",
+                image: "uploads/Echo Chamber of Dread-2.jpg",
+                medium: "Acrylic marker on canvas",
+                size: '11" × 14"',
+                date: "January 2025 (Incomplete)",
+                description: ""
+            },
+            {
+                title: "American Afterlife",
+                image: "uploads/American Afterlife-2.jpg",
+                medium: "Acrylic marker on canvas",
+                size: '24" × 36"',
+                date: "January 2025 (Incomplete)",
+                description: ""
+            },
+            {
+                title: "The Folds of Perception",
+                image: "uploads/The Folds of Perception-2.png",
+                medium: "Acrylic on canvas",
+                size: "Dimensions not specified",
+                date: "2020",
+                description: ""
+            }
+        ];
+
+        // Populate gallery
+        const gallery = document.getElementById('gallery');
+        artworks.forEach((artwork, index) => {
+            const tile = document.createElement('div');
+            tile.className = 'artwork-tile';
+            const img = document.createElement('img');
+            img.src = artwork.image;
+            img.alt = artwork.title;
+            img.loading = 'lazy';
+            tile.appendChild(img);
+            tile.onclick = () => openLightbox(index);
+            gallery.appendChild(tile);
+        });
+
+        function openLightbox(index) {
+            const artwork = artworks[index];
+            document.getElementById('lightboxImage').src = artwork.image;
+            document.getElementById('lightboxTitle').textContent = artwork.title;
+            document.getElementById('lightboxDescription').textContent = artwork.description;
+            document.getElementById('lightboxMedium').textContent = artwork.medium;
+            document.getElementById('lightboxSize').textContent = artwork.size;
+            document.getElementById('lightboxDate').textContent = artwork.date;
+            document.getElementById('lightbox').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightbox() {
+            document.getElementById('lightbox').classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close lightbox on ESC
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeLightbox();
+        });
+
+        // Close lightbox on background click
+        document.getElementById('lightbox').addEventListener('click', (e) => {
+            if (e.target.id === 'lightbox') closeLightbox();
+        });
+    </script>
+</body>
+</html>
