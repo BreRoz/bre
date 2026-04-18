@@ -1,619 +1,704 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zorerb — Contemporary Art</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Bre Roz — Sales Enablement & Productivity</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&family=Crimson+Text:ital@0;1&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+:root {
+  --ink: #1b1b1a;
+  --ink-2: #3a3a38;
+  --muted: #8a8a86;
+  --paper: #f5f1e8;
+  --paper-2: #ece6d7;
+  --line: #2a2a28;
+  --accent: #c4623c;
+  --accent-ink: #7a3a20;
+  --highlight: #f4d97a;
+}
 
-        :root {
-            --cream: #FFF8E7;
-            --orange: #FF6B35;
-            --pink: #FF6B9D;
-            --yellow: #FFC837;
-            --dark: #2C2C2C;
-            --light-gray: #F5F5F5;
-        }
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; background: var(--paper); color: var(--ink); font-family: 'Inter', sans-serif; line-height: 1.6; }
 
-        html {
-            scroll-behavior: smooth;
-        }
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
 
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', sans-serif;
-            background: var(--cream);
-            color: var(--dark);
-            line-height: 1.6;
-        }
+/* ---- Top nav ---- */
+.top-nav {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 24px;
+  align-items: center;
+  padding: 20px 40px;
+  border-bottom: 1px solid var(--line);
+  position: sticky;
+  top: 0;
+  background: var(--paper);
+  z-index: 100;
+}
 
-        /* HEADER / HERO */
-        header {
-            background: var(--cream);
-            padding: 4rem 2rem;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
+.top-nav .brand {
+  font-family: 'Caveat', cursive;
+  font-weight: 700;
+  font-size: 28px;
+  line-height: 1;
+}
 
-        header h1 {
-            font-size: clamp(2.5rem, 8vw, 4.5rem);
-            font-weight: 900;
-            color: var(--orange);
-            text-transform: uppercase;
-            letter-spacing: -0.02em;
-            margin-bottom: 1.5rem;
-            line-height: 1.1;
-        }
+.top-nav .nav-links {
+  display: flex;
+  gap: 28px;
+  justify-content: center;
+  font-size: 14px;
+}
 
-        header p {
-            font-size: clamp(1rem, 2vw, 1.25rem);
-            color: var(--dark);
-            max-width: 800px;
-            margin: 0 auto;
-            line-height: 1.7;
-        }
+.top-nav .nav-links a {
+  color: var(--ink);
+  text-decoration: none;
+  border-bottom: 2px solid transparent;
+  padding-bottom: 4px;
+  transition: border-color .2s;
+}
 
-        /* NAVIGATION */
-        nav {
-            display: none;
-        }
+.top-nav .nav-links a:hover,
+.top-nav .nav-links a.current {
+  border-bottom-color: var(--accent);
+  color: var(--accent-ink);
+}
 
-        /* MAIN CONTENT */
-        main {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 3rem 2rem;
-        }
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  border: 1.5px solid var(--line);
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  background: var(--paper);
+  color: var(--ink);
+  text-decoration: none;
+  cursor: pointer;
+  transition: all .2s;
+}
 
-        /* GALLERY GRID */
-        .gallery {
-            display: grid;
-            gap: 2rem;
-        }
+.btn:hover {
+  background: var(--paper-2);
+  border-color: var(--accent);
+}
 
-        .gallery-item {
-            position: relative;
-            overflow: hidden;
-            background: white;
-            cursor: pointer;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            border: 3px solid var(--orange);
-            border-radius: 12%;
-        }
+.btn.filled {
+  background: var(--accent);
+  color: white;
+  border-color: var(--accent);
+}
 
-        .gallery-item:hover {
-            transform: scale(1.02);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-        }
+.btn.filled:hover {
+  opacity: .9;
+}
 
-        .gallery-item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            object-position: center;
-            display: block;
-            scale: 1.05;
-        }
+/* ---- Hero ---- */
+.hero {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  gap: 48px;
+  align-items: center;
+  padding: 60px 40px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
 
-        /* FULL-BLEED HERO ITEMS */
-        .gallery-item.hero {
-            grid-column: 1 / -1;
-            aspect-ratio: 16 / 9;
-        }
+.hero h1 {
+  font-family: 'Caveat', cursive;
+  font-size: 72px;
+  line-height: 1;
+  margin: 0 0 16px;
+  font-weight: 700;
+}
 
-        .gallery-item.worry-is-worship img {
-            object-position: center 35%;
-        }
+.hero h1 em {
+  font-style: normal;
+  background: var(--highlight);
+  padding: 0 8px;
+}
 
-        .gallery-item.sipping-on-empire img {
-            object-position: center 30%;
-        }
+.hero .tagline {
+  font-family: 'Crimson Text', serif;
+  font-size: 18px;
+  color: var(--ink-2);
+  margin: 0 0 20px;
+  max-width: 520px;
+  line-height: 1.55;
+  font-style: italic;
+}
 
-        /* GRID ITEMS */
-        .gallery {
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        }
+.hero .bio {
+  font-size: 15px;
+  color: var(--ink-2);
+  max-width: 480px;
+  line-height: 1.7;
+  margin: 0 0 24px;
+}
 
-        .gallery-item.hero {
-            grid-column: 1 / -1;
-        }
+.hero .cta-row {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
 
-        /* TITLE & DESCRIPTION OVERLAY */
-        .gallery-item-info {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
-            padding: 2rem 1.5rem 1.5rem;
-            color: white;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
+.hero-photo {
+  aspect-ratio: 3/4;
+  border: 2px solid var(--line);
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 8px 8px 0 rgba(0, 0, 0, .06);
+}
 
-        .gallery-item:hover .gallery-item-info {
-            opacity: 1;
-        }
+.hero-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
 
-        .gallery-item-info h3 {
-            font-size: 1.25rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-        }
+/* ---- Metrics strip ---- */
+.metrics-strip {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  background: var(--paper-2);
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  max-width: 1200px;
+  margin: 0 auto;
+}
 
-        .gallery-item-info p {
-            font-size: 0.9rem;
-            opacity: 0.9;
-        }
+.metric {
+  padding: 28px 20px;
+  border-right: 1px dashed var(--line);
+}
 
-        /* LIGHTBOX */
-        .lightbox {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.95);
-            z-index: 1000;
-            align-items: center;
-            justify-content: center;
-            padding: 2rem;
-        }
+.metric:last-child { border-right: none; }
 
-        .lightbox.active {
-            display: flex;
-        }
+.metric .num {
+  font-family: 'Caveat', cursive;
+  font-weight: 700;
+  font-size: 40px;
+  line-height: 1;
+  color: var(--accent-ink);
+  margin-bottom: 8px;
+}
 
-        .lightbox-content {
-            position: relative;
-            max-width: 90vw;
-            max-height: 90vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
+.metric .label {
+  font-size: 13px;
+  color: var(--ink-2);
+}
 
-        .lightbox-image {
-            max-width: 100%;
-            max-height: 70vh;
-            object-fit: contain;
-            margin-bottom: 1.5rem;
-        }
+/* ---- Section ---- */
+.section {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 60px 40px;
+  border-top: 1px solid var(--line);
+}
 
-        .lightbox-info {
-            color: white;
-            text-align: center;
-            max-width: 600px;
-        }
+.section h2 {
+  font-family: 'Caveat', cursive;
+  font-size: 48px;
+  margin: 0 0 16px;
+  font-weight: 700;
+  line-height: 1;
+}
 
-        .lightbox-info h3 {
-            font-size: 1.5rem;
-            margin-bottom: 0.5rem;
-        }
+.section .desc {
+  font-size: 15px;
+  color: var(--ink-2);
+  max-width: 600px;
+  margin: 0 0 28px;
+  line-height: 1.7;
+}
 
-        .lightbox-info p {
-            font-size: 1rem;
-            opacity: 0.9;
-        }
+/* ---- Loom section ---- */
+.loom-wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1.6fr;
+  gap: 40px;
+  align-items: start;
+}
 
-        .lightbox-close {
-            position: absolute;
-            top: 1rem;
-            right: 1rem;
-            font-size: 2.5rem;
-            color: white;
-            cursor: pointer;
-            background: none;
-            border: none;
-            width: 50px;
-            height: 50px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: color 0.3s ease;
-        }
+.loom-text h3 {
+  font-family: 'Caveat', cursive;
+  font-size: 40px;
+  margin: 0 0 12px;
+  font-weight: 700;
+}
 
-        .lightbox-close:hover {
-            color: var(--orange);
-        }
+.loom-text p {
+  font-size: 15px;
+  color: var(--ink-2);
+  line-height: 1.65;
+  margin: 0 0 8px;
+}
 
-        .lightbox-nav {
-            position: absolute;
-            bottom: -60px;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            gap: 1rem;
-        }
+.loom-frame {
+  position: relative;
+  aspect-ratio: 16/9;
+  border: 2px solid var(--line);
+  border-radius: 8px;
+  overflow: hidden;
+  background: #000;
+}
 
-        .lightbox-nav button {
-            background: var(--orange);
-            color: white;
-            border: none;
-            padding: 0.75rem 1.5rem;
-            font-size: 1rem;
-            cursor: pointer;
-            font-weight: 600;
-            transition: background 0.3s ease;
-        }
+.loom-frame iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
 
-        .lightbox-nav button:hover {
-            background: var(--pink);
-        }
+/* ---- Chatbot section ---- */
+.chatbot-section {
+  background: color-mix(in srgb, var(--accent) 8%, var(--paper));
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
 
-        /* FOOTER */
-        footer {
-            background: var(--dark);
-            color: white;
-            padding: 3rem 2rem;
-            text-align: center;
-        }
+.chatbot-wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 60px 40px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  align-items: start;
+}
 
-        .social-links {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            margin-bottom: 1.5rem;
-            flex-wrap: wrap;
-        }
+.chatbot-text h3 {
+  font-family: 'Caveat', cursive;
+  font-size: 40px;
+  margin: 0 0 12px;
+  font-weight: 700;
+}
 
-        .social-links a {
-            color: var(--orange);
-            text-decoration: none;
-            font-weight: 600;
-            transition: color 0.3s ease;
-        }
+.chatbot-text p {
+  font-size: 15px;
+  color: var(--ink-2);
+  line-height: 1.65;
+  margin: 0 0 16px;
+}
 
-        .social-links a:hover {
-            color: var(--yellow);
-        }
+.chatbot-embed {
+  border: 2px solid var(--line);
+  border-radius: 8px;
+  overflow: hidden;
+  height: 600px;
+}
 
-        footer p {
-            opacity: 0.8;
-            font-size: 0.9rem;
-        }
+.chatbot-embed iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
 
-        /* RESPONSIVE */
-        @media (max-width: 768px) {
-            header {
-                padding: 2.5rem 1.5rem;
-            }
+/* ---- Case studies grid ---- */
+.cases-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+  margin-top: 32px;
+}
 
-            header h1 {
-                font-size: 2rem;
-            }
+.case-card {
+  border: 2px solid var(--line);
+  border-radius: 8px;
+  padding: 32px;
+  background: var(--paper);
+  transition: all .2s;
+}
 
-            header p {
-                font-size: 1rem;
-            }
+.case-card:hover {
+  box-shadow: 8px 8px 0 rgba(0, 0, 0, .06);
+  transform: translate(-2px, -2px);
+}
 
-            nav {
-                gap: 1rem;
-                padding: 0.75rem 1rem;
-            }
+.case-card .num {
+  font-family: 'Caveat', cursive;
+  font-size: 56px;
+  color: var(--accent);
+  line-height: 1;
+  margin: 0 0 8px;
+  font-weight: 700;
+}
 
-            nav a {
-                font-size: 0.85rem;
-            }
+.case-card h3 {
+  font-family: 'Caveat', cursive;
+  font-size: 32px;
+  line-height: 1.2;
+  margin: 0 0 12px;
+  font-weight: 700;
+}
 
-            main {
-                padding: 2rem 1rem;
-            }
+.case-card p {
+  font-size: 14px;
+  color: var(--ink-2);
+  line-height: 1.6;
+  margin: 0 0 16px;
+}
 
-            .gallery {
-                gap: 1.5rem;
-                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            }
+.case-card .kpi-inline {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  border-top: 1px dashed var(--line);
+  padding-top: 16px;
+  margin-top: 16px;
+}
 
-            .gallery-item.hero {
-                aspect-ratio: 4 / 3;
-            }
+.case-card .kpi {
+  font-size: 13px;
+}
 
-            .lightbox-nav {
-                bottom: -50px;
-            }
+.case-card .kpi b {
+  font-family: 'Caveat', cursive;
+  font-size: 22px;
+  color: var(--accent-ink);
+  display: block;
+  margin-bottom: 2px;
+}
 
-            .lightbox-nav button {
-                padding: 0.5rem 1rem;
-                font-size: 0.9rem;
-            }
-        }
+.case-card a {
+  display: inline-block;
+  margin-top: 16px;
+  font-weight: 600;
+  color: var(--accent);
+  border-bottom: 2px solid var(--accent);
+  padding-bottom: 4px;
+}
 
-        @media (max-width: 480px) {
-            header h1 {
-                font-size: 1.5rem;
-            }
+/* ---- Skills section ---- */
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin-top: 28px;
+}
 
-            header p {
-                font-size: 0.9rem;
-            }
+.skill-block {
+  background: var(--paper-2);
+  padding: 20px;
+  border-radius: 6px;
+  border: 1px solid var(--line);
+}
 
-            .gallery {
-                grid-template-columns: 1fr;
-            }
+.skill-block h4 {
+  font-family: 'Caveat', cursive;
+  font-size: 24px;
+  margin: 0 0 10px;
+  font-weight: 700;
+}
 
-            .gallery-item.hero {
-                aspect-ratio: auto;
-            }
+.skill-block ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  font-size: 13px;
+  color: var(--ink-2);
+  line-height: 1.8;
+}
 
-            .lightbox-nav {
-                flex-direction: column;
-                gap: 0.5rem;
-            }
-        }
-    </style>
+/* ---- Footer ---- */
+.footer {
+  background: var(--ink);
+  color: var(--paper);
+  padding: 40px;
+  border-top: 1px solid var(--line);
+}
+
+.footer-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr;
+  gap: 40px;
+}
+
+.footer h3 {
+  font-family: 'Caveat', cursive;
+  font-size: 32px;
+  margin: 0 0 12px;
+  font-weight: 700;
+}
+
+.footer .tagline {
+  font-size: 14px;
+  opacity: .8;
+  margin: 0;
+}
+
+.footer h4 {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--paper-2);
+  opacity: .6;
+  margin: 0 0 12px;
+}
+
+.footer ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.8;
+}
+
+.footer a {
+  color: var(--paper);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color .2s;
+}
+
+.footer a:hover {
+  border-bottom-color: var(--paper);
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 1024px) {
+  .hero, .loom-wrapper, .chatbot-wrapper { grid-template-columns: 1fr; }
+  .cases-grid { grid-template-columns: repeat(2, 1fr); }
+  .footer-content { grid-template-columns: 1fr; }
+  .metrics-strip { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 640px) {
+  .top-nav { grid-template-columns: 1fr; gap: 12px; }
+  .top-nav .nav-links { gap: 16px; font-size: 13px; }
+  .hero { padding: 40px 24px; gap: 24px; }
+  .hero h1 { font-size: 48px; }
+  .section { padding: 40px 24px; }
+  .cases-grid { grid-template-columns: 1fr; }
+  .skills-grid { grid-template-columns: 1fr; }
+  .hero .cta-row { flex-direction: column; }
+  .hero .cta-row .btn { width: 100%; justify-content: center; }
+}
+</style>
 </head>
 <body>
-    <!-- HEADER -->
-    <header>
-        <h1>Zorerb</h1>
-        <p>From personified fears to the geopolitical grotesque, my paintings unravel the fragile seams of power, memory, and reality itself. They whisper of a world where control tightens, history distorts, and the uncanny becomes commonplace.</p>
-    </header>
 
-    <!-- NAVIGATION -->
-    <nav>
-        <a href="#gallery">Gallery</a>
-        <a href="/cdn-cgi/l/email-protection#53303c3d2732302713293c213621317d303c3e">Email</a>
-        <a href="https://zorerb.artstation.com" target="_blank">ArtStation</a>
-        <a href="https://www.tiktok.com/@chiknpox" target="_blank">TikTok</a>
-        <a href="https://bsky.app/profile/zorerb.bsky.social" target="_blank">Bluesky</a>
-    </nav>
+<!-- NAV -->
+<nav class="top-nav">
+  <div class="brand">Bre Roz</div>
+  <div class="nav-links">
+    <a href="#work" class="current">Work</a>
+    <a href="#intro">Intro</a>
+    <a href="#skills">Skills</a>
+    <a href="#contact">Contact</a>
+  </div>
+  <a href="assets/Bre_Roz_Resume.pdf" download class="btn">Resume ↓</a>
+</nav>
 
-    <!-- MAIN GALLERY -->
-    <main>
-        <section class="gallery" id="gallery">
-            <!-- Hero Piece 1 -->
-            <div class="gallery-item hero worry-is-worship" data-title="Worry is Worship" data-medium="Acrylic marker on paper" data-size="11&quot; x 15&quot;" data-date="January 2025" data-image="uploads/worry_is_worship.jpg">
-                <img src="uploads/worry_is_worship.jpg" alt="Worry is Worship">
-                <div class="gallery-item-info">
-                    <h3>Worry is Worship</h3>
-                    <p>Acrylic marker on paper • 11" x 15" • January 2025</p>
-                </div>
-            </div>
+<!-- HERO -->
+<section class="hero">
+  <div>
+    <h1>Scaling sales teams from <em>46 to 3,000</em> without losing the plot.</h1>
+    <div class="tagline">Sales Enablement & Productivity · B2B SaaS GTM</div>
+    <div class="bio">Twelve years in marketing, six in sales enablement. I build the infrastructure that turns sales teams into revenue engines, with measurable impact across onboarding, enablement platforms, Gen AI integration, and revenue operations.</div>
+    <div class="cta-row">
+      <a href="#work" class="btn filled">See the work →</a>
+      <a href="#intro" class="btn">Watch intro (2 min)</a>
+      <a href="https://linkedin.com/in/breroz" target="_blank" rel="noopener" class="btn">LinkedIn ↗</a>
+    </div>
+  </div>
+  <div class="hero-photo">
+    <img src="assets/headshot.png" alt="Bre Roz" />
+  </div>
+</section>
 
-            <!-- Grid Items -->
-            <div class="gallery-item" data-title="A Request" data-medium="Oil on canvas" data-size="12&quot; x 12&quot;" data-date="March 2025" data-image="uploads/a_request.png">
-                <img src="uploads/a_request.png" alt="A Request">
-                <div class="gallery-item-info">
-                    <h3>A Request</h3>
-                    <p>Oil on canvas • 12" x 12"</p>
-                </div>
-            </div>
+<!-- METRICS -->
+<div class="metrics-strip">
+  <div class="metric">
+    <div class="num">3,000+</div>
+    <div class="label">Global sales reps enabled</div>
+  </div>
+  <div class="metric">
+    <div class="num">691%</div>
+    <div class="label">Lift in video engagement</div>
+  </div>
+  <div class="metric">
+    <div class="num">8.84%</div>
+    <div class="label">Reduction in call prep time</div>
+  </div>
+  <div class="metric">
+    <div class="num">2.75%</div>
+    <div class="label">Sales lift, heavy users</div>
+  </div>
+</div>
 
-            <div class="gallery-item" data-title="From Power to Plates" data-medium="Oil on canvas" data-size="12&quot; x 12&quot;" data-date="March 2025" data-image="uploads/from_power_to_plates.jpeg">
-                <img src="uploads/from_power_to_plates.jpeg" alt="From Power to Plates">
-                <div class="gallery-item-info">
-                    <h3>From Power to Plates</h3>
-                    <p>Oil on canvas • 12" x 12"</p>
-                </div>
-            </div>
+<!-- LOOM -->
+<section id="intro" class="section">
+  <div class="loom-wrapper">
+    <div class="loom-text">
+      <h3>Why I'm a fit for this role.</h3>
+      <p>A short Loom walking through my approach to sales enablement, the work I'm most proud of, and why an AI-first company is where I want to focus next.</p>
+      <p style="font-size: 13px; color: var(--muted); margin-top: 16px;">2 min · April 2026</p>
+    </div>
+    <div class="loom-frame">
+      <iframe src="https://www.loom.com/embed/7dcdf3bd07a341d9876f40f1c26fb5cd" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+    </div>
+  </div>
+</section>
 
-            <div class="gallery-item" data-title="Billionaire's Ark (V1)" data-medium="Oil on canvas" data-size="11&quot; x 14&quot;" data-date="March 2025" data-image="uploads/billionaires_ark_v1.png">
-                <img src="uploads/billionaires_ark_v1.png" alt="Billionaire's Ark (V1)">
-                <div class="gallery-item-info">
-                    <h3>Billionaire's Ark (V1)</h3>
-                    <p>Oil on canvas • 11" x 14"</p>
-                </div>
-            </div>
-
-            <div class="gallery-item" data-title="No Foreign War Needed" data-medium="Oil on canvas" data-size="11&quot; x 14&quot;" data-date="March 2025" data-image="uploads/no_foreign_war_needed.png">
-                <img src="uploads/no_foreign_war_needed.png" alt="No Foreign War Needed">
-                <div class="gallery-item-info">
-                    <h3>No Foreign War Needed</h3>
-                    <p>Oil on canvas • 11" x 14"</p>
-                </div>
-            </div>
-
-            <div class="gallery-item" data-title="Back Where You Belong?" data-medium="Oil on canvas" data-size="11&quot; x 14&quot;" data-date="March 2025" data-image="uploads/back_where_you_belong.png">
-                <img src="uploads/back_where_you_belong.png" alt="Back Where You Belong?">
-                <div class="gallery-item-info">
-                    <h3>Back Where You Belong?</h3>
-                    <p>Oil on canvas • 11" x 14"</p>
-                </div>
-            </div>
-
-            <!-- Hero Piece 2 -->
-            <div class="gallery-item hero" data-title="Last Light of Liberty" data-medium="Oil on paper" data-size="11&quot; x 15&quot;" data-date="March 2025" data-image="uploads/last_light_of_liberty.png">
-                <img src="uploads/last_light_of_liberty.png" alt="Last Light of Liberty">
-                <div class="gallery-item-info">
-                    <h3>Last Light of Liberty</h3>
-                    <p>Oil on paper • 11" x 15" • March 2025</p>
-                </div>
-            </div>
-
-            <!-- More Grid Items -->
-            <div class="gallery-item" data-title="Balance in Chaos" data-medium="Oil on paper" data-size="11&quot; x 15&quot;" data-date="February 2025" data-image="uploads/balance_in_chaos.png">
-                <img src="uploads/balance_in_chaos.png" alt="Balance in Chaos">
-                <div class="gallery-item-info">
-                    <h3>Balance in Chaos</h3>
-                    <p>Oil on paper • 11" x 15"</p>
-                </div>
-            </div>
-
-            <div class="gallery-item" data-title="Oizys" data-medium="Oil on canvas" data-size="5&quot; x 7&quot;" data-date="February 2025" data-image="uploads/oizys.png">
-                <img src="uploads/oizys.png" alt="Oizys">
-                <div class="gallery-item-info">
-                    <h3>Oizys</h3>
-                    <p>Oil on canvas • 5" x 7"</p>
-                </div>
-            </div>
-
-            <div class="gallery-item" data-title="Samsara" data-medium="Oil on paper" data-size="11&quot; x 15&quot;" data-date="February 2025" data-image="uploads/samsara.png">
-                <img src="uploads/samsara.png" alt="Samsara">
-                <div class="gallery-item-info">
-                    <h3>Samsara</h3>
-                    <p>Oil on paper • 11" x 15"</p>
-                </div>
-            </div>
-
-            <div class="gallery-item" data-title="Stuck in Time" data-medium="Oil on paper" data-size="11&quot; x 15&quot;" data-date="February 2025" data-image="uploads/stuck_in_time.png">
-                <img src="uploads/stuck_in_time.png" alt="Stuck in Time">
-                <div class="gallery-item-info">
-                    <h3>Stuck in Time</h3>
-                    <p>Oil on paper • 11" x 15"</p>
-                </div>
-            </div>
-
-            <!-- Hero Piece 3 -->
-            <div class="gallery-item hero sipping-on-empire" data-title="Sipping on Empire" data-medium="Acrylic marker on canvas" data-size="24&quot; x 36&quot;" data-date="January 2025" data-image="uploads/sipping_on_empire.jpg">
-                <img src="uploads/sipping_on_empire.jpg" alt="Sipping on Empire">
-                <div class="gallery-item-info">
-                    <h3>Sipping on Empire</h3>
-                    <p>Acrylic marker on canvas • 24" x 36" • January 2025</p>
-                </div>
-            </div>
-
-            <!-- More Grid Items -->
-            <div class="gallery-item" data-title="Eulogy for an Ideal" data-medium="Acrylic marker on paper" data-size="11&quot; x 15&quot;" data-date="January 2025" data-image="uploads/eulogy_for_an_ideal.jpg">
-                <img src="uploads/eulogy_for_an_ideal.jpg" alt="Eulogy for an Ideal">
-                <div class="gallery-item-info">
-                    <h3>Eulogy for an Ideal</h3>
-                    <p>Acrylic marker on paper • 11" x 15"</p>
-                </div>
-            </div>
-
-            <div class="gallery-item" data-title="The Last Broadcast" data-medium="Acrylic marker on canvas" data-size="24&quot; x 36&quot;" data-date="January 2025" data-image="uploads/the_last_broadcast.jpg">
-                <img src="uploads/the_last_broadcast.jpg" alt="The Last Broadcast">
-                <div class="gallery-item-info">
-                    <h3>The Last Broadcast</h3>
-                    <p>Acrylic marker on canvas • 24" x 36"</p>
-                </div>
-            </div>
-
-            <div class="gallery-item" data-title="Billionaire's Ark (V2)" data-medium="Oil on canvas" data-size="12&quot; x 12&quot;" data-date="March 2025" data-image="uploads/billionaires_ark_v2.png">
-                <img src="uploads/billionaires_ark_v2.png" alt="Billionaire's Ark (V2)">
-                <div class="gallery-item-info">
-                    <h3>Billionaire's Ark (V2)</h3>
-                    <p>Oil on canvas • 12" x 12"</p>
-                </div>
-            </div>
-
-            <div class="gallery-item" data-title="Warren Piece" data-medium="Acrylic marker on canvas" data-image="uploads/warren_piece.png">
-                <img src="uploads/warren_piece.png" alt="Warren Piece">
-                <div class="gallery-item-info">
-                    <h3>Warren Piece</h3>
-                    <p>Acrylic marker on canvas</p>
-                </div>
-            </div>
-
-            <div class="gallery-item" data-title="Echo Chamber of Dread" data-medium="Acrylic marker on canvas" data-size="11&quot; x 14&quot;" data-date="January 2025" data-image="uploads/echo_chamber_of_dread.jpg">
-                <img src="uploads/echo_chamber_of_dread.jpg" alt="Echo Chamber of Dread">
-                <div class="gallery-item-info">
-                    <h3>Echo Chamber of Dread</h3>
-                    <p>Acrylic marker on canvas • 11" x 14"</p>
-                </div>
-            </div>
-
-            <div class="gallery-item" data-title="American Afterlife" data-medium="Acrylic marker on canvas" data-size="24&quot; x 36&quot;" data-date="January 2025" data-image="uploads/american_afterlife.jpg">
-                <img src="uploads/american_afterlife.jpg" alt="American Afterlife">
-                <div class="gallery-item-info">
-                    <h3>American Afterlife</h3>
-                    <p>Acrylic marker on canvas • 24" x 36"</p>
-                </div>
-            </div>
-
-            <div class="gallery-item" data-title="Stars, Stripes, and Sticker Prices" data-medium="Oil on canvas" data-size="12&quot; x 12&quot;" data-date="March 2025" data-image="uploads/starsstripesandsticker_prices.png">
-                <img src="uploads/starsstripesandsticker_prices.png" alt="Stars, Stripes, and Sticker Prices">
-                <div class="gallery-item-info">
-                    <h3>Stars, Stripes, and Sticker Prices</h3>
-                    <p>Oil on canvas • 12" x 12"</p>
-                </div>
-            </div>
-
-            <div class="gallery-item" data-title="The Folds of Perception" data-medium="Acrylic on canvas" data-image="uploads/the_folds_of_perception.png">
-                <img src="uploads/the_folds_of_perception.png" alt="The Folds of Perception">
-                <div class="gallery-item-info">
-                    <h3>The Folds of Perception</h3>
-                    <p>Acrylic on canvas</p>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <!-- LIGHTBOX -->
-    <div class="lightbox" id="lightbox">
-        <button class="lightbox-close" onclick="closeLightbox()">&times;</button>
-        <div class="lightbox-content">
-            <img id="lightbox-image" class="lightbox-image" src="" alt="">
-            <div class="lightbox-info">
-                <h3 id="lightbox-title"></h3>
-                <p id="lightbox-description"></p>
-            </div>
-            <div class="lightbox-nav">
-                <button onclick="previousImage()">← Previous</button>
-                <button onclick="nextImage()">Next →</button>
-            </div>
-        </div>
+<!-- CASE STUDIES -->
+<section id="work" class="section">
+  <h2>Selected work</h2>
+  <div class="desc">Three case studies from my time at Meta, leading sales enablement and revenue operations. Each shows how cross-functional collaboration, data-driven thinking, and user research drive measurable business impact.</div>
+  
+  <div class="cases-grid">
+    
+    <!-- Case 01 -->
+    <div class="case-card">
+      <div class="num">01</div>
+      <h3>Redesigning the sales hub for 3,000 global reps</h3>
+      <p>Diagnosed that search, not content, was the adoption blocker. Led Eng, UX, Research, and Design through a complete platform redesign focused on user workflow.</p>
+      <div class="kpi-inline">
+        <div class="kpi"><b>8.84%</b>less call prep time</div>
+        <div class="kpi"><b>2.75%</b>sales lift</div>
+        <div class="kpi"><b>71%</b>traffic QoQ</div>
+        <div class="kpi"><b>53%</b>more downloads</div>
+      </div>
+      <a href="case-01-sales-hub.html">Read case →</a>
     </div>
 
-    <!-- FOOTER -->
-    <footer>
-        <div class="social-links">
-        </div>
-        <p>&copy; 2025 Zorerb. All rights reserved.</p>
-    </footer>
+    <!-- Case 02 -->
+    <div class="case-card">
+      <div class="num">02</div>
+      <h3>Gen AI integration without breaking the knowledge base</h3>
+      <p>Partnered with the Gen AI team, Engineering, and PMs to retrain the model while protecting knowledge base authority through hybrid linking.</p>
+      <div class="kpi-inline">
+        <div class="kpi"><b>3.41%</b>repo traffic via AI</div>
+        <div class="kpi"><b>100%</b>integrity maintained</div>
+      </div>
+      <a href="case-02-gen-ai.html">Read case →</a>
+    </div>
 
-    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js" defer></script><script>
-        let currentImageIndex = 0;
-        const galleryItems = document.querySelectorAll('.gallery-item');
+    <!-- Case 03 -->
+    <div class="case-card">
+      <div class="num">03</div>
+      <h3>Making the content people already made actually used</h3>
+      <p>Acted as product owner for a full video and PDF repository redesign. Advocated for a new tagging system when Engineering wanted legacy infrastructure.</p>
+      <div class="kpi-inline">
+        <div class="kpi"><b>691%</b>lift in video views</div>
+        <div class="kpi"><b>57%</b>more PDF downloads</div>
+      </div>
+      <a href="case-03-video-repo.html">Read case →</a>
+    </div>
 
-        // Add click handlers to gallery items
-        galleryItems.forEach((item, index) => {
-            item.addEventListener('click', () => {
-                currentImageIndex = index;
-                openLightbox(item);
-            });
-        });
+  </div>
+</section>
 
-        function openLightbox(element) {
-            const title = element.dataset.title;
-            const medium = element.dataset.medium;
-            const size = element.dataset.size;
-            const date = element.dataset.date;
-            const image = element.dataset.image;
+<!-- CIVIX -->
+<section class="section" style="background: #1a1a24; border-top: 1px solid rgba(196, 98, 60, 0.3);">
+  <div style="max-width: 1200px; margin: 0 auto;">
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start;">
+      <div>
+        <div style="font-size: 12px; text-transform: uppercase; letter-spacing: 2px; color: var(--accent); margin-bottom: 16px;">Side quest</div>
+        <h2 style="margin: 0 0 16px; color: white;">Civix</h2>
+        <div style="font-family: 'Crimson Text', serif; font-size: 18px; color: #ccc; line-height: 1.6; max-width: 500px; margin-bottom: 24px; font-style: italic;">Crime intelligence for Austin residents. See what's happening around your home or apartment complex, straight from public police records.</div>
+        <p style="font-size: 15px; color: #aaa; line-height: 1.7; max-width: 500px; margin: 0 0 24px;">Co-built with <a href="https://linkedin.com/in/matthew-bahrenburg" target="_blank" rel="noopener" style="color: var(--accent); text-decoration: none; border-bottom: 1px solid var(--accent);">Matthew Bahrenburg</a>. We combined Austin PD crime data APIs with a clean, accessible interface. Users can search by address, filter by time window and crime type, and get real-time incident reports. Early traction in the Austin renter community.</p>
+        <a href="#" style="display: inline-block; padding: 12px 24px; background: var(--accent); color: white; border-radius: 6px; text-decoration: none; font-weight: 600; font-size: 14px;">Explore Civix →</a>
+      </div>
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+        <img src="assets/civix-1.jpg" alt="Civix hero screen" style="width: 100%; border-radius: 8px; border: 1px solid rgba(196, 98, 60, 0.2);" />
+        <img src="assets/civix-2.jpg" alt="Civix detail screen" style="width: 100%; border-radius: 8px; border: 1px solid rgba(196, 98, 60, 0.2);" />
+      </div>
+    </div>
+  </div>
+</section>
 
-            document.getElementById('lightbox-image').src = image;
-            document.getElementById('lightbox-title').textContent = title;
-            
-            let description = medium;
-            if (size) description += ' • ' + size;
-            if (date) description += ' • ' + date;
-            document.getElementById('lightbox-description').textContent = description;
+<!-- CHATBOT -->
+<section class="chatbot-section">
+  <div class="chatbot-wrapper">
+    <div class="chatbot-text">
+      <h3>Ask me anything.</h3>
+      <p>Curious about my approach to enablement, the Meta work, or how I think about sales operations? Ask my AI assistant—it knows my portfolio and can answer questions in real time.</p>
+      <p style="font-size: 13px; color: var(--muted); margin-top: 16px;">Powered by Chatbase</p>
+    </div>
+    <div class="chatbot-embed">
+      <iframe src="https://www.chatbase.co/chatbot-iframe/XVTWdjRxUA3-aeE9b2GaA" frameborder="0"></iframe>
+    </div>
+  </div>
+</section>
 
-            document.getElementById('lightbox').classList.add('active');
-        }
+<!-- SKILLS -->
+<section id="skills" class="section">
+  <h2>How I work</h2>
+  <div class="desc">A mix of technical depth, cross-functional leadership, and data-driven problem solving. I'm most effective in fast-moving environments where I can translate between teams and build for scale.</div>
+  
+  <div class="skills-grid">
+    
+    <div class="skill-block">
+      <h4>Technical</h4>
+      <ul>
+        <li>Asana, Trello, Figma, Miro</li>
+        <li>Tableau, Google Suite</li>
+        <li>CRM platforms</li>
+        <li>AI tools & troubleshooting</li>
+        <li>Knowledge management systems</li>
+      </ul>
+    </div>
 
-        function closeLightbox() {
-            document.getElementById('lightbox').classList.remove('active');
-        }
+    <div class="skill-block">
+      <h4>Professional</h4>
+      <ul>
+        <li>GTM strategy & ops</li>
+        <li>Sales enablement</li>
+        <li>Revenue operations</li>
+        <li>Product marketing</li>
+        <li>Training & onboarding</li>
+        <li>Change management</li>
+      </ul>
+    </div>
 
-        function nextImage() {
-            currentImageIndex = (currentImageIndex + 1) % galleryItems.length;
-            openLightbox(galleryItems[currentImageIndex]);
-        }
+    <div class="skill-block">
+      <h4>Leadership</h4>
+      <ul>
+        <li>Cross-functional collaboration</li>
+        <li>Stakeholder management</li>
+        <li>Influence without authority</li>
+        <li>Data-driven impact measurement</li>
+        <li>Scaling in fast-growth</li>
+      </ul>
+    </div>
 
-        function previousImage() {
-            currentImageIndex = (currentImageIndex - 1 + galleryItems.length) % galleryItems.length;
-            openLightbox(galleryItems[currentImageIndex]);
-        }
+  </div>
+</section>
 
-        // Close lightbox on Esc key
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') closeLightbox();
-            if (e.key === 'ArrowRight') nextImage();
-            if (e.key === 'ArrowLeft') previousImage();
-        });
+<!-- FOOTER -->
+<footer id="contact" class="footer">
+  <div class="footer-content">
+    <div>
+      <h3>Bre Roz</h3>
+      <p class="tagline">Sales enablement, revenue operations, and productivity for B2B SaaS.</p>
+    </div>
+    <div>
+      <h4>Get in touch</h4>
+      <ul>
+        <li><a href="/cdn-cgi/l/email-protection#b9dbcbdcf9dbcbdccbd6c397dad6d4"><span class="__cf_email__" data-cfemail="9af8e8ffdaf8e8ffe8f5e0b4f9f5f7">[email&#160;protected]</span></a></li>
+        <li><a href="https://linkedin.com/in/breroz" target="_blank" rel="noopener">LinkedIn / breroz</a></li>
+        <li><a href="assets/Bre_Roz_Resume.pdf" download>Resume (PDF) ↓</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Site info</h4>
+      <ul>
+        <li>Built 2026</li>
+        <li>Designed by Bre</li>
+        <li><a href="https://www.chatbase.co" target="_blank" rel="noopener">Chatbase integration</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
 
-        // Close lightbox when clicking outside the image
-        document.getElementById('lightbox').addEventListener('click', (e) => {
-            if (e.target.id === 'lightbox') closeLightbox();
-        });
-    </script>
-</body>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js" defer></script></body>
 </html>
