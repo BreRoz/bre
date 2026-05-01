@@ -3,386 +3,387 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Case Study: Sales Hub Redesign — Bre Roz</title>
+<title>Case 03 / Redesigning the sales hub for 3,000 global reps — Bre Roz</title>
+<meta name="description" content="Platform redesign that diagnosed search as the adoption blocker — 8.84% reduction in call prep time, 2.75% sales lift for heavy users, 71% traffic QoQ." />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&family=Crimson+Text:ital@0;1&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&family=Fraunces:ital,opsz,wght@1,9..144,400;1,9..144,500;1,9..144,600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="case.css?v=2" />
 <style>
-:root {
-  --ink: #1b1b1a;
-  --ink-2: #3a3a38;
-  --muted: #8a8a86;
-  --paper: #f5f1e8;
-  --paper-2: #ece6d7;
-  --line: #2a2a28;
-  --accent: #c4623c;
-  --accent-ink: #7a3a20;
-  --highlight: #f4d97a;
-}
-
-* { box-sizing: border-box; }
-html, body { margin: 0; padding: 0; background: var(--paper); color: var(--ink); font-family: 'Inter', sans-serif; line-height: 1.6; }
-
-a { color: var(--accent); text-decoration: none; }
-a:hover { text-decoration: underline; }
-
-.top-nav {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 20px 40px;
-  border-bottom: 1px solid var(--line);
-  position: sticky;
-  top: 0;
-  background: var(--paper);
-  z-index: 100;
-}
-
-.top-nav .brand {
-  font-family: 'Caveat', cursive;
-  font-weight: 700;
-  font-size: 28px;
-  line-height: 1;
-}
-
-.top-nav a {
-  font-size: 14px;
-  font-weight: 600;
-  color: var(--ink);
-  border-bottom: 2px solid transparent;
-  padding-bottom: 4px;
-  transition: border-color .2s;
-}
-
-.top-nav a:hover { border-bottom-color: var(--accent); }
-
-.breadcrumb {
-  max-width: 1000px;
-  margin: 0 auto;
-  padding: 40px 40px 0;
-  font-size: 13px;
-  color: var(--muted);
-}
-
-.breadcrumb a { color: var(--accent); }
-
-.hero {
-  max-width: 1000px;
-  margin: 0 auto;
-  padding: 40px 40px 60px;
-}
-
-.hero h1 {
-  font-family: 'Caveat', cursive;
-  font-size: 64px;
-  line-height: 1.1;
-  margin: 0 0 20px;
-  font-weight: 700;
-}
-
-.hero .eyebrow {
-  font-size: 12px;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  color: var(--accent-ink);
-  margin: 0 0 8px;
-}
-
-.hero .intro {
-  font-family: 'Crimson Text', serif;
-  font-size: 18px;
-  color: var(--ink-2);
-  line-height: 1.6;
-  max-width: 700px;
-  margin: 0 0 28px;
-  font-style: italic;
-}
-
-.content {
-  max-width: 1000px;
-  margin: 0 auto;
-  padding: 0 40px 60px;
-}
-
-.content h2 {
-  font-family: 'Caveat', cursive;
-  font-size: 40px;
-  margin: 48px 0 16px;
-  font-weight: 700;
-  line-height: 1;
-}
-
-.content h2:first-of-type { margin-top: 0; }
-
-.content h3 {
-  font-family: 'Caveat', cursive;
-  font-size: 28px;
-  margin: 20px 0 12px;
-  font-weight: 700;
-  line-height: 1.1;
-}
-
-.content p {
-  font-size: 15px;
-  line-height: 1.75;
-  color: var(--ink-2);
-  margin: 0 0 16px;
-}
-
-.content ul, .content ol {
-  font-size: 15px;
-  line-height: 1.75;
-  color: var(--ink-2);
-  margin: 16px 0;
-  padding-left: 24px;
-}
-
-.content li {
-  margin-bottom: 8px;
-}
-
-.kpi-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 20px;
-  margin: 32px 0;
-  padding: 28px;
-  background: color-mix(in srgb, var(--accent) 8%, var(--paper));
-  border: 1px solid var(--line);
-  border-radius: 8px;
-}
-
-.kpi-grid .kpi {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-
-.kpi-grid .kpi .num {
-  font-family: 'Caveat', cursive;
-  font-size: 36px;
-  font-weight: 700;
-  color: var(--accent-ink);
-  line-height: 1;
-}
-
-.kpi-grid .kpi .label {
-  font-size: 13px;
-  color: var(--ink-2);
-}
-
-.pull-quote {
-  font-family: 'Caveat', cursive;
-  font-size: 32px;
-  line-height: 1.2;
-  color: var(--accent-ink);
-  border-left: 4px solid var(--accent);
-  padding-left: 20px;
-  margin: 32px 0;
-  font-weight: 700;
-}
-
-.footer {
-  background: var(--ink);
-  color: var(--paper);
-  padding: 40px;
-  margin-top: 60px;
-  border-top: 1px solid var(--line);
-}
-
-.footer-content {
-  max-width: 1000px;
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: 1.5fr 1fr 1fr;
-  gap: 40px;
-}
-
-.footer h3 {
-  font-family: 'Caveat', cursive;
-  font-size: 28px;
-  margin: 0 0 12px;
-  font-weight: 700;
-}
-
-.footer h4 {
-  font-size: 11px;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  color: var(--paper-2);
-  opacity: .6;
-  margin: 0 0 12px;
-}
-
-.footer ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  font-size: 14px;
-  line-height: 1.8;
-}
-
-.footer a {
-  color: var(--paper);
-  text-decoration: none;
-  border-bottom: 1px solid transparent;
-  transition: border-color .2s;
-}
-
-.footer a:hover { border-bottom-color: var(--paper); }
-
-@media (max-width: 768px) {
-  .top-nav { flex-direction: column; gap: 12px; }
-  .hero, .content, .breadcrumb { padding: 40px 24px; }
-  .hero h1 { font-size: 44px; }
-  .content h2 { font-size: 32px; }
-  .kpi-grid { grid-template-columns: 1fr; }
-  .footer-content { grid-template-columns: 1fr; }
-}
+  /* Per-page accent override: Drafting Blue */
+  :root { --accent: var(--drafting); }
 </style>
 </head>
 <body>
 
-<nav class="top-nav">
-  <a href="index.html" class="brand">← Bre Roz</a>
-  <a href="index.html">Back to portfolio</a>
+<a href="#main" class="skip">Skip to content</a>
+<div class="grid-overlay" aria-hidden="true"></div>
+
+<!-- NAV -->
+<nav class="nav" id="nav">
+  <div class="nav__inner container">
+    <a href="index.html" class="nav__mark" data-nav-close>
+      <span>ROZ</span>
+      <span class="slash" aria-hidden="true" style="width:9px;height:18px;"></span>
+      <span>CO</span>
+    </a>
+    <div class="nav__links mono">
+      <a href="index.html#work">01 / WORK</a>
+      <a href="index.html#side-quest">02 / SIDE QUEST</a>
+      <a href="index.html#ama">03 / AMA</a>
+      <a href="index.html#skills">04 / SKILLS</a>
+    </div>
+    <a class="nav__cta nav__cta--desktop" href="assets/Bre_Roz_Resume.pdf" download>
+      RESUME <span aria-hidden="true">↓</span>
+    </a>
+    <button class="nav__burger" aria-label="Open menu" aria-expanded="false" id="nav-burger">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <div class="nav__progress" id="nav-progress"></div>
+  <div class="nav__drawer">
+    <div class="nav__drawer-inner mono">
+      <a href="index.html#work" data-nav-close>01 <span>/</span> WORK</a>
+      <a href="index.html#side-quest" data-nav-close>02 <span>/</span> SIDE QUEST</a>
+      <a href="index.html#ama" data-nav-close>03 <span>/</span> AMA</a>
+      <a href="index.html#skills" data-nav-close>04 <span>/</span> SKILLS</a>
+      <a class="nav__drawer-cta" href="assets/Bre_Roz_Resume.pdf" download data-nav-close>
+        RESUME <span aria-hidden="true">↓</span>
+      </a>
+      <div class="nav__drawer-meta mono">
+        <span><span class="tick">●</span> AVAILABLE · MAY 2026</span>
+        <span>AUSTIN, TX</span>
+      </div>
+    </div>
+  </div>
 </nav>
 
-<div class="breadcrumb">
-  <a href="index.html">Work</a> / Case Study 03
-</div>
+<main id="main">
 
-<section class="hero">
-  <div class="eyebrow">Meta · 2024 · Sales Enablement</div>
-  <h1>Redesigning the sales hub for 3,000 global reps</h1>
-  <div style="font-size: 14px; color: var(--muted); margin: -12px 0 20px; font-style: italic;">Product Marketing &amp; Technical Requirements for External Sales Tool</div>
-  <div class="intro">
-    The Meta sales enablement platform wasn't being used despite extensive content. Research revealed the real problem wasn't content quality—it was search. I led a cross-functional redesign that prioritized user workflow, resulting in an 8.84% reduction in call prep time and a 2.75% sales lift for heavy users.
+<!-- BREADCRUMB -->
+<section class="crumb">
+  <div class="container crumb__inner">
+    <a class="crumb__back" href="index.html">
+      <span aria-hidden="true">←</span> BACK TO PORTFOLIO
+    </a>
+    <span class="crumb__sep">/</span>
+    <span class="crumb__id">CASE-03</span>
+    <span class="crumb__sep">·</span>
+    <span>META · 2023</span>
+    <span class="crumb__filler"></span>
+    <span>v.2026.05</span>
   </div>
 </section>
 
-<section class="content">
+<!-- HERO -->
+<section class="cs-hero">
+  <div class="container">
+    <div class="cs-hero__kicker">
+      <span class="tick">▍</span>
+      PLATFORM REDESIGN
+      <span class="slash" aria-hidden="true" style="width:6px;height:12px;"></span>
+      SALES ENABLEMENT
+      <span class="slash" aria-hidden="true" style="width:6px;height:12px;"></span>
+      META · 2023
+    </div>
 
-<h2>The problem</h2>
+    <h1 class="cs-hero__h1" data-reveal-h1>
+      <span class="cs-hero__h1-word" style="transition-delay:0ms"><span>Redesigning the sales hub</span></span>
+      <span class="cs-hero__h1-word" style="transition-delay:110ms"><span class="serif">for 3,000</span></span>
+      <span class="cs-hero__h1-word" style="transition-delay:220ms"><span>global reps.</span></span>
+    </h1>
 
-<p>Sales reps were spending 8+ hours per week searching for materials across multiple systems. Knowledge existed, but findability was broken. Teams were creating unapproved content out of frustration, creating compliance risk. Platform adoption was low despite significant investment in content creation.</p>
-
-<h3>Root causes</h3>
-<ul>
-  <li><strong>Search functionality was inadequate.</strong> The platform's search didn't understand sales context—searching for "objection handling" returned irrelevant results.</li>
-  <li><strong>Navigation required domain expertise.</strong> Reps had to know the taxonomy to find anything. New reps were lost.</li>
-  <li><strong>Content discoverability was passive.</strong> Without active search, reps missed relevant resources.</li>
-  <li><strong>No integration with sales workflow.</strong> The platform felt disconnected from how reps actually worked (Salesforce, email, Slack).</li>
-</ul>
-
-<h2>Approach</h2>
-
-<p>Rather than add more content, I reframed the problem as a <em>user workflow and productivity</em> challenge. This shifted the conversation from "we need more materials" to "we need to make materials findable and actionable."</p>
-
-<h3>Discovery phase</h3>
-<ul>
-  <li>Conducted 20+ interviews with reps across regions, products, and tenure levels.</li>
-  <li>Shadowed sales calls to understand where reps needed information (discovery, objection handling, closing).</li>
-  <li>Analyzed search logs and platform telemetry to identify gaps.</li>
-  <li>Built personas for reps at different career stages.</li>
-</ul>
-
-<h3>Strategic positioning</h3>
-<p>Reframed to leadership as a dual-value play: <strong>sales effectiveness improvement</strong> (better close rates, faster ramp) + <strong>productivity gains</strong> (fewer hours spent searching). This secured buy-in from sales leadership and C-level.</p>
-
-<h3>Design & execution</h3>
-<ul>
-  <li><strong>Defined product roadmap</strong> and translated business requirements into technical specifications for the development team.</li>
-  <li><strong>New search experience:</strong> Built semantic search that understood sales intent, not just keywords.</li>
-  <li><strong>Smart navigation:</strong> Layered navigation by use case (discovery, qualification, closing) + product line + sales stage.</li>
-  <li><strong>Workflow integration:</strong> Slack-native commands, email snippets, Salesforce sidebar embedding.</li>
-  <li><strong>Content organization:</strong> Moved from rigid taxonomy to dynamic tagging, allowing content to live in multiple contexts.</li>
-  <li><strong>Onboarding redesign:</strong> Short, workflow-based training instead of long content library tours.</li>
-</ul>
-
-<div class="pull-quote">Search, not content, was the adoption blocker.</div>
-
-<h2>Results</h2>
-
-<div class="kpi-grid">
-  <div class="kpi">
-    <div class="num">8.84%</div>
-    <div class="label">Reduction in call prep time</div>
+    <div class="cs-hero__lede">
+      <dl class="cs-hero__meta">
+        <div>
+          <dt>ROLE</dt>
+          <dd>Product Owner / Technical Requirements</dd>
+        </div>
+        <div>
+          <dt>PARTNERS</dt>
+          <dd>Engineering · UX · Research · Sales Leadership</dd>
+        </div>
+        <div>
+          <dt>TIMELINE</dt>
+          <dd>Discovery → ship → iterate</dd>
+        </div>
+        <div>
+          <dt>SCALE</dt>
+          <dd>3,000+ global sales reps</dd>
+        </div>
+      </dl>
+      <p>
+        The Meta sales enablement platform wasn't being used despite extensive content.
+        Research revealed the real problem wasn't content quality — it was search.
+        I led a cross-functional redesign that prioritized user workflow, resulting in an
+        <span class="cs-hero__hl">8.84%</span> reduction in call prep time and a
+        <span class="cs-hero__hl">2.75%</span> sales lift for heavy users.
+      </p>
+    </div>
   </div>
-  <div class="kpi">
-    <div class="num">2.75%</div>
-    <div class="label">Sales lift for heavy users</div>
-  </div>
-  <div class="kpi">
-    <div class="num">71%</div>
-    <div class="label">Traffic increase Q1 post-launch</div>
-  </div>
-  <div class="kpi">
-    <div class="num">53%</div>
-    <div class="label">More material downloads</div>
-  </div>
-</div>
-
-<h3>Adoption & engagement</h3>
-<ul>
-  <li>71% increase in platform traffic quarter-over-quarter post-launch.</li>
-  <li>53% increase in material downloads from the platform.</li>
-  <li>Search now accounted for 67% of traffic (up from 12%).</li>
-  <li>Slack integration adoption was 81% within 6 weeks.</li>
-</ul>
-
-<h3>Business impact</h3>
-<ul>
-  <li><strong>Sales productivity:</strong> Reps saved 4 hours per week on average through faster material discovery.</li>
-  <li><strong>Sales effectiveness:</strong> 2.75% lift in close rate for power users (heavy platform usage).</li>
-  <li><strong>Ramp time:</strong> New hires achieved productivity 3 weeks faster than historical average.</li>
-  <li><strong>Compliance:</strong> Reps reduced creation of unapproved materials by 64%.</li>
-</ul>
-
-<h2>Key learnings</h2>
-
-<p><strong>1. Search is a feature, not a nice-to-have.</strong> When findability is broken, users work around the system. Good search is the foundation of any knowledge platform.</p>
-
-<p><strong>2. Reframe problems as user problems, not feature problems.</strong> "We need more content" is a feature request. "Reps need to find information faster during calls" is a user problem that might have many solutions.</p>
-
-<p><strong>3. Integrate with existing workflows.</strong> A great tool that requires new habits won't succeed. Meet users where they already are (Slack, email, Salesforce).</p>
-
-<p><strong>4. Measure what matters.</strong> Usage metrics are vanity. Measure what actually impacts sales: call prep time, close rate, ramp speed, and compliance.</p>
-
-<div style="margin-top: 40px; padding-top: 28px; border-top: 1px dashed var(--line);">
-  <div style="font-size: 12px; text-transform: uppercase; letter-spacing: 2px; color: var(--muted); margin-bottom: 12px;">Skills applied</div>
-  <div style="display: flex; flex-wrap: wrap; gap: 8px;">
-    <span style="background: var(--paper-2); border: 1px solid var(--line); border-radius: 4px; padding: 5px 12px; font-size: 13px; color: var(--ink-2);">Technical Requirements</span>
-    <span style="background: var(--paper-2); border: 1px solid var(--line); border-radius: 4px; padding: 5px 12px; font-size: 13px; color: var(--ink-2);">Product/Engineering Collaboration</span>
-    <span style="background: var(--paper-2); border: 1px solid var(--line); border-radius: 4px; padding: 5px 12px; font-size: 13px; color: var(--ink-2);">Cross-functional Leadership</span>
-  </div>
-</div>
-
 </section>
 
+<!-- RECEIPTS -->
+<section class="cs-dash">
+  <div class="container">
+    <div class="cs-dash__inner">
+      <div class="cs-dash__head">
+        <span><span class="tick">▍</span> RECEIPTS · POST-LAUNCH</span>
+        <span class="cs-dash__head-rule"></span>
+        <span>4 INSTRUMENTS</span>
+      </div>
+      <div class="cs-dash__grid" style="--cols:4;">
+        <div class="receipt">
+          <div class="receipt__num mono" data-counter="8.84" data-decimals="2" data-suffix="%">0</div>
+          <div class="receipt__label">Reduction in call prep time</div>
+          <div class="receipt__sub">QoQ AVG</div>
+        </div>
+        <div class="receipt">
+          <div class="receipt__num mono" data-counter="2.75" data-decimals="2" data-suffix="%">0</div>
+          <div class="receipt__label">Sales lift, heavy users</div>
+          <div class="receipt__sub">VS. CONTROL</div>
+        </div>
+        <div class="receipt">
+          <div class="receipt__num mono" data-counter="71" data-suffix="%">0</div>
+          <div class="receipt__label">Traffic increase</div>
+          <div class="receipt__sub">Q1 POST-LAUNCH</div>
+        </div>
+        <div class="receipt">
+          <div class="receipt__num mono" data-counter="53" data-suffix="%">0</div>
+          <div class="receipt__label">More material downloads</div>
+          <div class="receipt__sub">QUARTER-OVER-QUARTER</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 01 / THE PROBLEM -->
+<section class="cs-section">
+  <div class="container">
+    <div class="cs-section__bar">
+      <span><span class="tick">▍</span> SECTION 01</span>
+      <span class="cs-section__bar-rule"></span>
+      <span>THE PROBLEM</span>
+    </div>
+    <div class="cs-grid">
+      <div class="cs-grid__sticky">
+        <div class="cs-grid__sticky-num mono">01</div>
+        <div class="cs-grid__sticky-label">Diagnosis</div>
+      </div>
+      <div class="cs-prose">
+        <p>
+          Sales reps were spending <strong>8+ hours per week</strong> searching for materials
+          across multiple systems. Knowledge existed, but findability was broken. Teams were
+          creating unapproved content out of frustration — creating compliance risk. Platform
+          adoption was low despite significant investment in content creation.
+        </p>
+        <h3>Root causes</h3>
+        <ul class="cs-list" data-reveal>
+          <li data-n="01"><strong>Search functionality was inadequate.</strong> The platform's search didn't understand sales context — searching for "objection handling" returned irrelevant results.</li>
+          <li data-n="02"><strong>Navigation required domain expertise.</strong> Reps had to know the taxonomy to find anything. New reps were lost.</li>
+          <li data-n="03"><strong>Content discoverability was passive.</strong> Without active search, reps missed relevant resources.</li>
+          <li data-n="04"><strong>No integration with sales workflow.</strong> The platform felt disconnected from where reps actually worked — Salesforce, email, Slack.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 02 / APPROACH -->
+<section class="cs-section">
+  <div class="container">
+    <div class="cs-section__bar">
+      <span><span class="tick">▍</span> SECTION 02</span>
+      <span class="cs-section__bar-rule"></span>
+      <span>APPROACH</span>
+    </div>
+    <div class="cs-grid">
+      <div class="cs-grid__sticky">
+        <div class="cs-grid__sticky-num mono">02</div>
+        <div class="cs-grid__sticky-label">Reframe</div>
+      </div>
+      <div class="cs-prose">
+        <p>
+          Rather than add more content, I reframed the problem as a <em>user workflow and
+          productivity</em> challenge. This shifted the conversation from "we need more
+          materials" to "we need to make materials findable and actionable."
+        </p>
+
+        <h3>Discovery phase</h3>
+        <ul class="cs-list" data-reveal>
+          <li data-n="01">Conducted <strong>20+ interviews</strong> with reps across regions, products, and tenure levels.</li>
+          <li data-n="02">Shadowed sales calls to understand where reps needed information — discovery, objection handling, closing.</li>
+          <li data-n="03">Analyzed search logs and platform telemetry to identify gaps.</li>
+          <li data-n="04">Built personas for reps at different career stages.</li>
+        </ul>
+
+        <div class="cs-quote" data-reveal>Search, not content, was the adoption blocker.</div>
+
+        <h3>Strategic positioning</h3>
+        <p>
+          Reframed to leadership as a dual-value play: <strong>sales effectiveness</strong>
+          (better close rates, faster ramp) + <strong>productivity gains</strong>
+          (fewer hours spent searching). This secured buy-in from sales leadership and C-level.
+        </p>
+
+        <h3>Design &amp; execution</h3>
+        <ul class="cs-list" data-reveal>
+          <li data-n="01"><strong>Defined product roadmap</strong> and translated business requirements into technical specifications for the development team.</li>
+          <li data-n="02"><strong>New search experience.</strong> Built semantic search that understood sales intent, not just keywords.</li>
+          <li data-n="03"><strong>Smart navigation.</strong> Layered by use case (discovery, qualification, closing) + product line + sales stage.</li>
+          <li data-n="04"><strong>Workflow integration.</strong> Slack-native commands, email snippets, Salesforce sidebar embedding.</li>
+          <li data-n="05"><strong>Content organization.</strong> Moved from rigid taxonomy to dynamic tagging — content lives in multiple contexts.</li>
+          <li data-n="06"><strong>Onboarding redesign.</strong> Short, workflow-based training instead of long content library tours.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 03 / RESULTS -->
+<section class="cs-section">
+  <div class="container">
+    <div class="cs-section__bar">
+      <span><span class="tick">▍</span> SECTION 03</span>
+      <span class="cs-section__bar-rule"></span>
+      <span>RESULTS</span>
+    </div>
+    <div class="cs-grid">
+      <div class="cs-grid__sticky">
+        <div class="cs-grid__sticky-num mono">03</div>
+        <div class="cs-grid__sticky-label">Receipts</div>
+      </div>
+      <div class="cs-prose">
+        <h3>Adoption &amp; engagement</h3>
+        <ul class="cs-list" data-reveal>
+          <li data-n="01"><strong>71%</strong> increase in platform traffic quarter-over-quarter post-launch.</li>
+          <li data-n="02"><strong>53%</strong> increase in material downloads from the platform.</li>
+          <li data-n="03">Search now accounted for <strong>67% of traffic</strong> — up from 12%.</li>
+          <li data-n="04">Slack integration adoption was <strong>81% within 6 weeks</strong>.</li>
+        </ul>
+        <h3>Business impact</h3>
+        <ul class="cs-list" data-reveal>
+          <li data-n="01"><strong>Sales productivity.</strong> Reps saved 4 hours per week on average through faster material discovery.</li>
+          <li data-n="02"><strong>Sales effectiveness.</strong> 2.75% lift in close rate for power users (heavy platform usage).</li>
+          <li data-n="03"><strong>Ramp time.</strong> New hires achieved productivity 3 weeks faster than the historical average.</li>
+          <li data-n="04"><strong>Compliance.</strong> Reps reduced creation of unapproved materials by 64%.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 04 / KEY LEARNINGS -->
+<section class="cs-section">
+  <div class="container">
+    <div class="cs-section__bar">
+      <span><span class="tick">▍</span> SECTION 04</span>
+      <span class="cs-section__bar-rule"></span>
+      <span>KEY LEARNINGS</span>
+    </div>
+    <div class="cs-learnings">
+      <div class="cs-learning">
+        <div class="cs-learning__num">01 / LEARNING</div>
+        <div class="cs-learning__title">Search is a feature, not a nice-to-have.</div>
+        <p class="cs-learning__body">When findability is broken, users work around the system. Good search is the foundation of any knowledge platform.</p>
+      </div>
+      <div class="cs-learning">
+        <div class="cs-learning__num">02 / LEARNING</div>
+        <div class="cs-learning__title">Reframe problems as user problems.</div>
+        <p class="cs-learning__body">"We need more content" is a feature request. "Reps need to find information faster during calls" is a user problem with many possible solutions.</p>
+      </div>
+      <div class="cs-learning">
+        <div class="cs-learning__num">03 / LEARNING</div>
+        <div class="cs-learning__title">Integrate with existing workflows.</div>
+        <p class="cs-learning__body">A great tool that requires new habits won't succeed. Meet users where they already are — Slack, email, Salesforce.</p>
+      </div>
+      <div class="cs-learning">
+        <div class="cs-learning__num">04 / LEARNING</div>
+        <div class="cs-learning__title">Measure what matters.</div>
+        <p class="cs-learning__body">Usage metrics are vanity. Measure what actually impacts sales: call prep time, close rate, ramp speed, and compliance.</p>
+      </div>
+    </div>
+
+    <div class="cs-grid" style="margin-top:48px;">
+      <div class="cs-grid__sticky">
+        <div class="cs-grid__sticky-num mono">▍</div>
+        <div class="cs-grid__sticky-label">Skills applied</div>
+      </div>
+      <div class="cs-chips">
+        <span class="cs-chip">TECHNICAL REQUIREMENTS</span>
+        <span class="cs-chip">PRODUCT/ENGINEERING COLLAB</span>
+        <span class="cs-chip">CROSS-FUNCTIONAL LEADERSHIP</span>
+        <span class="cs-chip">USER RESEARCH</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NEXT CASE — loops back to Case 01 -->
+<a class="next-case next-case--link" href="case-03-video-repo.html">
+  <div class="next-case__bg" aria-hidden="true"></div>
+  <div class="next-case__inner">
+    <div>
+      <div class="next-case__eyebrow">START OVER · CASE 01 <span class="slash" aria-hidden="true" style="width:5px;height:11px;background:var(--steel-2);"></span> META · 2024</div>
+      <div class="next-case__title">
+        Building Meta's <span class="serif">first internal</span> sales video platform.
+      </div>
+    </div>
+    <span class="next-case__cta">
+      READ CASE 01 <span class="arrow" aria-hidden="true">→</span>
+    </span>
+  </div>
+</a>
+
+</main>
+
+<!-- FOOTER -->
 <footer class="footer">
-  <div class="footer-content">
-    <div>
-      <h3>Bre Roz</h3>
-      <p style="font-size: 14px; opacity: .8; margin: 0;">Sales enablement, revenue operations, and productivity for B2B SaaS.</p>
+  <div class="footer__giant" aria-hidden="true">
+    <div class="footer__giant-track" id="footer-marquee"></div>
+  </div>
+  <div class="footer__cols">
+    <div class="footer__col footer__col--mark">
+      <div class="footer__mark">
+        <span>ROZ</span>
+        <span class="slash" aria-hidden="true" style="width:14px;height:28px;"></span>
+        <span>CO</span>
+      </div>
+      <p class="footer__tag">
+        GTM systems builder. Building the tools and infrastructure that
+        help sales teams operate at scale.
+      </p>
+      <p class="footer__mantra">The work shows itself.</p>
     </div>
-    <div>
-      <h4>Get in touch</h4>
-      <ul>
-        <li><a href="mailto:bre@breroz.com">bre@breroz.com</a></li>
-        <li><a href="https://linkedin.com/in/breroz" target="_blank" rel="noopener">LinkedIn</a></li>
+    <div class="footer__col">
+      <div class="eyebrow">GET IN TOUCH</div>
+      <ul class="footer__list">
+        <li><a href="mailto:hello@breroz.com">HELLO@BREROZ.COM <span aria-hidden="true">↗</span></a></li>
+        <li><a href="https://linkedin.com/in/breroz" target="_blank" rel="noopener noreferrer">LINKEDIN / BREROZ <span aria-hidden="true">↗</span></a></li>
+        <li><a href="assets/Bre_Roz_Resume.pdf" download>RESUME (PDF) <span aria-hidden="true">↓</span></a></li>
       </ul>
     </div>
-    <div>
-      <h4>More work</h4>
-      <ul>
-        <li><a href="case-03-video-repo.html">Case 01: Video platform</a></li>
-        <li><a href="case-02-gen-ai.html">Case 02: Gen AI</a></li>
-        <li><a href="index.html">Back to portfolio</a></li>
+    <div class="footer__col">
+      <div class="eyebrow">MORE WORK</div>
+      <ul class="footer__list">
+        <li><a href="case-03-video-repo.html">CASE 01 / VIDEO PLATFORM <span aria-hidden="true">→</span></a></li>
+        <li><a href="case-02-gen-ai.html">CASE 02 / GEN AI <span aria-hidden="true">→</span></a></li>
+        <li><a href="index.html">BACK TO PORTFOLIO <span aria-hidden="true">↗</span></a></li>
       </ul>
     </div>
+    <div class="footer__col footer__col--avail">
+      <div class="footer__avail"><span class="tick">●</span> AVAILABLE<br/>MAY 2026</div>
+      <div class="footer__loc">AUSTIN, TX<br/>30.27, -97.74</div>
+    </div>
+  </div>
+  <div class="footer__base">
+    <span>© 2026 ROZ/CO</span>
+    <span class="footer__base-rule"></span>
+    <span>THE LOOP CONTINUES</span>
   </div>
 </footer>
 
+<script src="case.js?v=2"></script>
 </body>
 </html>

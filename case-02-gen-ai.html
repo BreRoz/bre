@@ -3,382 +3,377 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Case Study: Gen AI Integration — Bre Roz</title>
+<title>Case 02 / Gen AI integration without breaking the knowledge base — Bre Roz</title>
+<meta name="description" content="Hybrid model that protected knowledge base integrity while integrating Gen AI: 3.41% repo traffic via AI, 100% accuracy maintained." />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&family=Crimson+Text:ital@0;1&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&family=Fraunces:ital,opsz,wght@1,9..144,400;1,9..144,500;1,9..144,600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="case.css?v=2" />
 <style>
-:root {
-  --ink: #1b1b1a;
-  --ink-2: #3a3a38;
-  --muted: #8a8a86;
-  --paper: #f5f1e8;
-  --paper-2: #ece6d7;
-  --line: #2a2a28;
-  --accent: #c4623c;
-  --accent-ink: #7a3a20;
-  --highlight: #f4d97a;
-}
-
-* { box-sizing: border-box; }
-html, body { margin: 0; padding: 0; background: var(--paper); color: var(--ink); font-family: 'Inter', sans-serif; line-height: 1.6; }
-
-a { color: var(--accent); text-decoration: none; }
-a:hover { text-decoration: underline; }
-
-.top-nav {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 20px 40px;
-  border-bottom: 1px solid var(--line);
-  position: sticky;
-  top: 0;
-  background: var(--paper);
-  z-index: 100;
-}
-
-.top-nav .brand {
-  font-family: 'Caveat', cursive;
-  font-weight: 700;
-  font-size: 28px;
-  line-height: 1;
-}
-
-.top-nav a {
-  font-size: 14px;
-  font-weight: 600;
-  color: var(--ink);
-  border-bottom: 2px solid transparent;
-  padding-bottom: 4px;
-  transition: border-color .2s;
-}
-
-.top-nav a:hover { border-bottom-color: var(--accent); }
-
-.breadcrumb {
-  max-width: 1000px;
-  margin: 0 auto;
-  padding: 40px 40px 0;
-  font-size: 13px;
-  color: var(--muted);
-}
-
-.breadcrumb a { color: var(--accent); }
-
-.hero {
-  max-width: 1000px;
-  margin: 0 auto;
-  padding: 40px 40px 60px;
-}
-
-.hero h1 {
-  font-family: 'Caveat', cursive;
-  font-size: 64px;
-  line-height: 1.1;
-  margin: 0 0 20px;
-  font-weight: 700;
-}
-
-.hero .eyebrow {
-  font-size: 12px;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  color: var(--accent-ink);
-  margin: 0 0 8px;
-}
-
-.hero .intro {
-  font-family: 'Crimson Text', serif;
-  font-size: 18px;
-  color: var(--ink-2);
-  line-height: 1.6;
-  max-width: 700px;
-  margin: 0 0 28px;
-  font-style: italic;
-}
-
-.content {
-  max-width: 1000px;
-  margin: 0 auto;
-  padding: 0 40px 60px;
-}
-
-.content h2 {
-  font-family: 'Caveat', cursive;
-  font-size: 40px;
-  margin: 48px 0 16px;
-  font-weight: 700;
-  line-height: 1;
-}
-
-.content h2:first-of-type { margin-top: 0; }
-
-.content h3 {
-  font-family: 'Caveat', cursive;
-  font-size: 28px;
-  margin: 20px 0 12px;
-  font-weight: 700;
-  line-height: 1.1;
-}
-
-.content p {
-  font-size: 15px;
-  line-height: 1.75;
-  color: var(--ink-2);
-  margin: 0 0 16px;
-}
-
-.content ul, .content ol {
-  font-size: 15px;
-  line-height: 1.75;
-  color: var(--ink-2);
-  margin: 16px 0;
-  padding-left: 24px;
-}
-
-.content li {
-  margin-bottom: 8px;
-}
-
-.kpi-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 20px;
-  margin: 32px 0;
-  padding: 28px;
-  background: color-mix(in srgb, var(--accent) 8%, var(--paper));
-  border: 1px solid var(--line);
-  border-radius: 8px;
-}
-
-.kpi-grid .kpi {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-
-.kpi-grid .kpi .num {
-  font-family: 'Caveat', cursive;
-  font-size: 36px;
-  font-weight: 700;
-  color: var(--accent-ink);
-  line-height: 1;
-}
-
-.kpi-grid .kpi .label {
-  font-size: 13px;
-  color: var(--ink-2);
-}
-
-.pull-quote {
-  font-family: 'Caveat', cursive;
-  font-size: 32px;
-  line-height: 1.2;
-  color: var(--accent-ink);
-  border-left: 4px solid var(--accent);
-  padding-left: 20px;
-  margin: 32px 0;
-  font-weight: 700;
-}
-
-.footer {
-  background: var(--ink);
-  color: var(--paper);
-  padding: 40px;
-  margin-top: 60px;
-  border-top: 1px solid var(--line);
-}
-
-.footer-content {
-  max-width: 1000px;
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: 1.5fr 1fr 1fr;
-  gap: 40px;
-}
-
-.footer h3 {
-  font-family: 'Caveat', cursive;
-  font-size: 28px;
-  margin: 0 0 12px;
-  font-weight: 700;
-}
-
-.footer h4 {
-  font-size: 11px;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  color: var(--paper-2);
-  opacity: .6;
-  margin: 0 0 12px;
-}
-
-.footer ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  font-size: 14px;
-  line-height: 1.8;
-}
-
-.footer a {
-  color: var(--paper);
-  text-decoration: none;
-  border-bottom: 1px solid transparent;
-  transition: border-color .2s;
-}
-
-.footer a:hover { border-bottom-color: var(--paper); }
-
-@media (max-width: 768px) {
-  .top-nav { flex-direction: column; gap: 12px; }
-  .hero, .content, .breadcrumb { padding: 40px 24px; }
-  .hero h1 { font-size: 44px; }
-  .content h2 { font-size: 32px; }
-  .kpi-grid { grid-template-columns: 1fr; }
-  .footer-content { grid-template-columns: 1fr; }
-}
+  /* Per-page accent override: Receipt Green */
+  :root { --accent: var(--green); }
 </style>
 </head>
 <body>
 
-<nav class="top-nav">
-  <a href="index.html" class="brand">← Bre Roz</a>
-  <a href="index.html">Back to portfolio</a>
+<a href="#main" class="skip">Skip to content</a>
+<div class="grid-overlay" aria-hidden="true"></div>
+
+<!-- NAV -->
+<nav class="nav" id="nav">
+  <div class="nav__inner container">
+    <a href="index.html" class="nav__mark" data-nav-close>
+      <span>ROZ</span>
+      <span class="slash" aria-hidden="true" style="width:9px;height:18px;"></span>
+      <span>CO</span>
+    </a>
+    <div class="nav__links mono">
+      <a href="index.html#work">01 / WORK</a>
+      <a href="index.html#side-quest">02 / SIDE QUEST</a>
+      <a href="index.html#ama">03 / AMA</a>
+      <a href="index.html#skills">04 / SKILLS</a>
+    </div>
+    <a class="nav__cta nav__cta--desktop" href="assets/Bre_Roz_Resume.pdf" download>
+      RESUME <span aria-hidden="true">↓</span>
+    </a>
+    <button class="nav__burger" aria-label="Open menu" aria-expanded="false" id="nav-burger">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <div class="nav__progress" id="nav-progress"></div>
+  <div class="nav__drawer">
+    <div class="nav__drawer-inner mono">
+      <a href="index.html#work" data-nav-close>01 <span>/</span> WORK</a>
+      <a href="index.html#side-quest" data-nav-close>02 <span>/</span> SIDE QUEST</a>
+      <a href="index.html#ama" data-nav-close>03 <span>/</span> AMA</a>
+      <a href="index.html#skills" data-nav-close>04 <span>/</span> SKILLS</a>
+      <a class="nav__drawer-cta" href="assets/Bre_Roz_Resume.pdf" download data-nav-close>
+        RESUME <span aria-hidden="true">↓</span>
+      </a>
+      <div class="nav__drawer-meta mono">
+        <span><span class="tick">●</span> AVAILABLE · MAY 2026</span>
+        <span>AUSTIN, TX</span>
+      </div>
+    </div>
+  </div>
 </nav>
 
-<div class="breadcrumb">
-  <a href="index.html">Work</a> / Case Study 02
-</div>
+<main id="main">
 
-<section class="hero">
-  <div class="eyebrow">Meta · 2025 · Gen AI Integration</div>
-  <h1>Integrating Gen AI without breaking the knowledge base</h1>
-  <div class="intro">
-    When an internal AI tool began providing inaccurate sales information from outdated training data, it threatened both sales effectiveness and the authority of the knowledge base. I partnered with the Gen AI team, Engineering, and Product to retrain the model while safeguarding knowledge integrity through a hybrid approach: AI provides convenience, but always links back to source material.
+<!-- BREADCRUMB -->
+<section class="crumb">
+  <div class="container crumb__inner">
+    <a class="crumb__back" href="index.html">
+      <span aria-hidden="true">←</span> BACK TO PORTFOLIO
+    </a>
+    <span class="crumb__sep">/</span>
+    <span class="crumb__id">CASE-02</span>
+    <span class="crumb__sep">·</span>
+    <span>META · 2024</span>
+    <span class="crumb__filler"></span>
+    <span>v.2026.05</span>
   </div>
 </section>
 
-<section class="content">
+<!-- HERO -->
+<section class="cs-hero">
+  <div class="container">
+    <div class="cs-hero__kicker">
+      <span class="tick">▍</span>
+      GEN AI INTEGRATION
+      <span class="slash" aria-hidden="true" style="width:6px;height:12px;"></span>
+      KNOWLEDGE INTEGRITY
+      <span class="slash" aria-hidden="true" style="width:6px;height:12px;"></span>
+      META · 2024
+    </div>
 
-<h2>The problem</h2>
+    <h1 class="cs-hero__h1" data-reveal-h1>
+      <span class="cs-hero__h1-word" style="transition-delay:0ms"><span>Gen AI integration</span></span>
+      <span class="cs-hero__h1-word" style="transition-delay:110ms"><span class="serif">without breaking</span></span>
+      <span class="cs-hero__h1-word" style="transition-delay:220ms"><span>the knowledge base.</span></span>
+    </h1>
 
-<p>An internal LLM trained on older sales materials was providing answers that conflicted with current guidance. Sales reps were following outdated advice, creating inconsistency in pitches and closing strategies. More critically, the AI's incorrect answers were undermining trust in the knowledge base itself—if the AI said it, maybe the KB was wrong?</p>
-
-<h3>The tension</h3>
-<ul>
-  <li><strong>Speed vs. accuracy:</strong> The Gen AI team wanted to launch quickly to show value. Sales wanted perfect accuracy.</li>
-  <li><strong>Convenience vs. authority:</strong> AI is appealing for its speed. But in sales, authority matters—reps need to trust the source.</li>
-  <li><strong>Training data drift:</strong> The model was trained on Q2 materials. Q3 and Q4 updates never made it into retraining.</li>
-</ul>
-
-<h2>Approach</h2>
-
-<p>Rather than choose between speed and accuracy, I advocated for a <em>hybrid model</em> that prioritized accuracy while maintaining AI convenience.</p>
-
-<h3>Root cause analysis</h3>
-<ul>
-  <li>Discovered the training data was 4+ months old when launched.</li>
-  <li>Identified 23 specific pieces of guidance where AI conflicted with current KB.</li>
-  <li>Conducted interviews with sales leaders to understand trust issues.</li>
-  <li>Built a framework for how different content types should be handled (product specs vs. playbooks vs. objection handling).</li>
-</ul>
-
-<h3>The hybrid approach</h3>
-<p><strong>Instead of</strong> relying purely on AI-generated answers, we built a system where:</p>
-<ul>
-  <li><strong>AI retrieves and summarizes,</strong> but every answer includes a link to the source material in the KB.</li>
-  <li><strong>High-confidence answers</strong> (product specs, pricing) are pre-vetted by Product before going into the training set.</li>
-  <li><strong>Lower-confidence answers</strong> (strategy, playbooks) always suggest "read the full article" as a secondary action.</li>
-  <li><strong>Feedback loops</strong> flag when AI answers conflict with KB updates, triggering retraining.</li>
-  <li><strong>Transparency:</strong> The AI discloses its training date and confidence level in answers.</li>
-</ul>
-
-<div class="pull-quote">AI convenience, knowledge integrity intact.</div>
-
-<h3>Execution</h3>
-<ul>
-  <li>Partnered directly with the Gen AI engineering team to troubleshoot retrieval logic and implement fixes.</li>
-  <li>Worked with Gen AI eng team to redesign the training pipeline to include real-time KB updates.</li>
-  <li>Created a "source linking" feature so every AI answer could cite back to KB articles.</li>
-  <li>Established a cross-functional governance model: Product owns accuracy, Sales owns use cases, Gen AI owns performance.</li>
-  <li>Built monitoring dashboards to catch accuracy drift in real time.</li>
-</ul>
-
-<h2>Results</h2>
-
-<div class="kpi-grid">
-  <div class="kpi">
-    <div class="num">3.41%</div>
-    <div class="label">Repository traffic via AI queries</div>
+    <div class="cs-hero__lede">
+      <dl class="cs-hero__meta">
+        <div>
+          <dt>ROLE</dt>
+          <dd>Cross-functional Lead / Governance</dd>
+        </div>
+        <div>
+          <dt>PARTNERS</dt>
+          <dd>Gen AI Engineering · Product · Sales</dd>
+        </div>
+        <div>
+          <dt>TIMELINE</dt>
+          <dd>Discovery → governance model → ship</dd>
+        </div>
+        <div>
+          <dt>SCALE</dt>
+          <dd>Org-wide AI assistant · Meta sales</dd>
+        </div>
+      </dl>
+      <p>
+        An internal LLM trained on older sales materials began serving answers that conflicted
+        with current guidance. I partnered directly with the Gen AI engineering team to retrain
+        the model and shipped a hybrid linking approach that protected knowledge base integrity —
+        <span class="cs-hero__hl">3.41%</span> of repo traffic now comes through AI, with
+        <span class="cs-hero__hl">100%</span> integrity maintained.
+      </p>
+    </div>
   </div>
-  <div class="kpi">
-    <div class="num">100%</div>
-    <div class="label">Knowledge integrity maintained</div>
-  </div>
-</div>
-
-<h3>Adoption & engagement</h3>
-<ul>
-  <li>3.41% of overall KB traffic now comes through AI queries.</li>
-  <li>45% of AI-answered questions result in a click-through to the full KB article (indicating legitimacy and deeper learning).</li>
-  <li>Zero reported instances of AI providing information that conflicts with current KB guidance since launch.</li>
-  <li>Reps report higher confidence in AI answers because they link back to source.</li>
-</ul>
-
-<h3>Business impact</h3>
-<ul>
-  <li><strong>Maintained trust:</strong> Sales leaders see the AI as a supplement, not a replacement for the knowledge base.</li>
-  <li><strong>Faster scaling:</strong> The hybrid model allows us to scale AI to new product lines without manual accuracy review.</li>
-  <li><strong>Informed decisions:</strong> Governance model has already prevented launching AI guidance on 3 evolving product areas.</li>
-  <li><strong>Precedent for Gen AI integration:</strong> This framework became the template for other Gen AI initiatives across Meta sales.</li>
-</ul>
-
-<h2>Key learnings</h2>
-
-<p><strong>1. AI is not a replacement for systems.</strong> A good AI tool is only as good as its underlying data. Invest in the source of truth first.</p>
-
-<p><strong>2. Speed vs. accuracy is a false choice.</strong> When you must choose between fast and wrong vs. slow and right, the third option is often "fast AND right, with transparency about trade-offs."</p>
-
-<p><strong>3. Governance matters for Gen AI.</strong> Without clear ownership of accuracy, bias, and updates, AI systems drift and fail silently. Cross-functional governance prevented that here.</p>
-
-<p><strong>4. Users want transparency.</strong> Reps don't mind AI-generated answers if they know the AI's confidence level and can access the source. Build trust through transparency.</p>
-
-<div style="margin-top: 40px; padding-top: 28px; border-top: 1px dashed var(--line);">
-  <div style="font-size: 12px; text-transform: uppercase; letter-spacing: 2px; color: var(--muted); margin-bottom: 12px;">Skills applied</div>
-  <div style="display: flex; flex-wrap: wrap; gap: 8px;">
-    <span style="background: var(--paper-2); border: 1px solid var(--line); border-radius: 4px; padding: 5px 12px; font-size: 13px; color: var(--ink-2);">AI Integration</span>
-    <span style="background: var(--paper-2); border: 1px solid var(--line); border-radius: 4px; padding: 5px 12px; font-size: 13px; color: var(--ink-2);">Technical Troubleshooting</span>
-    <span style="background: var(--paper-2); border: 1px solid var(--line); border-radius: 4px; padding: 5px 12px; font-size: 13px; color: var(--ink-2);">Engineering Partnership</span>
-  </div>
-</div>
-
 </section>
 
+<!-- RECEIPTS -->
+<section class="cs-dash">
+  <div class="container">
+    <div class="cs-dash__inner">
+      <div class="cs-dash__head">
+        <span><span class="tick">▍</span> RECEIPTS · POST-LAUNCH</span>
+        <span class="cs-dash__head-rule"></span>
+        <span>2 INSTRUMENTS</span>
+      </div>
+      <div class="cs-dash__grid" style="--cols:2;">
+        <div class="receipt">
+          <div class="receipt__num mono" data-counter="3.41" data-decimals="2" data-suffix="%">0</div>
+          <div class="receipt__label">Repository traffic via AI queries</div>
+          <div class="receipt__sub">ORG-WIDE · POST-LAUNCH</div>
+        </div>
+        <div class="receipt">
+          <div class="receipt__num mono" data-counter="100" data-suffix="%">0</div>
+          <div class="receipt__label">Knowledge integrity maintained</div>
+          <div class="receipt__sub">ZERO ACCURACY DRIFT INCIDENTS</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 01 / THE PROBLEM -->
+<section class="cs-section">
+  <div class="container">
+    <div class="cs-section__bar">
+      <span><span class="tick">▍</span> SECTION 01</span>
+      <span class="cs-section__bar-rule"></span>
+      <span>THE PROBLEM</span>
+    </div>
+    <div class="cs-grid">
+      <div class="cs-grid__sticky">
+        <div class="cs-grid__sticky-num mono">01</div>
+        <div class="cs-grid__sticky-label">Diagnosis</div>
+      </div>
+      <div class="cs-prose">
+        <p>
+          An internal LLM trained on older sales materials was serving answers that conflicted
+          with current guidance. Reps were following outdated advice — creating inconsistency
+          in pitches and closing strategies. More critically, the AI's incorrect answers were
+          undermining trust in the knowledge base itself: <em>if the AI said it, maybe the KB was wrong?</em>
+        </p>
+        <h3>The tension</h3>
+        <ul class="cs-list" data-reveal>
+          <li data-n="01"><strong>Speed vs. accuracy.</strong> The Gen AI team wanted to launch quickly to show value. Sales wanted perfect accuracy.</li>
+          <li data-n="02"><strong>Convenience vs. authority.</strong> AI is appealing for its speed. But in sales, authority matters — reps need to trust the source.</li>
+          <li data-n="03"><strong>Training data drift.</strong> The model was trained on Q2 materials. Q3 and Q4 updates never made it into retraining.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 02 / APPROACH -->
+<section class="cs-section">
+  <div class="container">
+    <div class="cs-section__bar">
+      <span><span class="tick">▍</span> SECTION 02</span>
+      <span class="cs-section__bar-rule"></span>
+      <span>APPROACH</span>
+    </div>
+    <div class="cs-grid">
+      <div class="cs-grid__sticky">
+        <div class="cs-grid__sticky-num mono">02</div>
+        <div class="cs-grid__sticky-label">Hybrid Model</div>
+      </div>
+      <div class="cs-prose">
+        <p>
+          Rather than choose between speed and accuracy, I advocated for a <em>hybrid model</em>
+          that prioritized accuracy while maintaining AI convenience.
+        </p>
+
+        <h3>Root cause analysis</h3>
+        <ul class="cs-list" data-reveal>
+          <li data-n="01">Training data was <strong>4+ months old</strong> when launched.</li>
+          <li data-n="02">Identified <strong>23 specific pieces of guidance</strong> where AI conflicted with current KB.</li>
+          <li data-n="03">Conducted interviews with sales leaders to understand trust issues.</li>
+          <li data-n="04">Built a framework for how different content types should be handled — product specs vs. playbooks vs. objection handling.</li>
+        </ul>
+
+        <div class="cs-quote" data-reveal>AI convenience, knowledge integrity intact.</div>
+
+        <h3>The hybrid approach</h3>
+        <p>Instead of relying purely on AI-generated answers, we built a system where:</p>
+        <ul class="cs-list" data-reveal>
+          <li data-n="01"><strong>AI retrieves and summarizes,</strong> but every answer includes a link to the source material in the KB.</li>
+          <li data-n="02"><strong>High-confidence answers</strong> (product specs, pricing) are pre-vetted by Product before going into the training set.</li>
+          <li data-n="03"><strong>Lower-confidence answers</strong> (strategy, playbooks) always suggest "read the full article" as a secondary action.</li>
+          <li data-n="04"><strong>Feedback loops</strong> flag when AI answers conflict with KB updates — triggering retraining.</li>
+          <li data-n="05"><strong>Transparency.</strong> The AI discloses its training date and confidence level in every answer.</li>
+        </ul>
+
+        <h3>Execution</h3>
+        <ul class="cs-list" data-reveal>
+          <li data-n="01">Partnered directly with the Gen AI engineering team to troubleshoot retrieval logic and implement fixes.</li>
+          <li data-n="02">Redesigned the training pipeline to include real-time KB updates.</li>
+          <li data-n="03">Created a "source linking" feature so every AI answer cites back to KB articles.</li>
+          <li data-n="04">Established a cross-functional governance model: <strong>Product</strong> owns accuracy, <strong>Sales</strong> owns use cases, <strong>Gen AI</strong> owns performance.</li>
+          <li data-n="05">Built monitoring dashboards to catch accuracy drift in real time.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 03 / RESULTS -->
+<section class="cs-section">
+  <div class="container">
+    <div class="cs-section__bar">
+      <span><span class="tick">▍</span> SECTION 03</span>
+      <span class="cs-section__bar-rule"></span>
+      <span>RESULTS</span>
+    </div>
+    <div class="cs-grid">
+      <div class="cs-grid__sticky">
+        <div class="cs-grid__sticky-num mono">03</div>
+        <div class="cs-grid__sticky-label">Receipts</div>
+      </div>
+      <div class="cs-prose">
+        <h3>Adoption &amp; engagement</h3>
+        <ul class="cs-list" data-reveal>
+          <li data-n="01"><strong>3.41%</strong> of overall KB traffic now comes through AI queries.</li>
+          <li data-n="02"><strong>45%</strong> of AI-answered questions result in a click-through to the full KB article — indicating legitimacy and deeper learning.</li>
+          <li data-n="03"><strong>Zero</strong> reported instances of AI providing information that conflicts with current KB guidance since launch.</li>
+          <li data-n="04">Reps report higher confidence in AI answers because they link back to source.</li>
+        </ul>
+        <h3>Business impact</h3>
+        <ul class="cs-list" data-reveal>
+          <li data-n="01"><strong>Maintained trust.</strong> Sales leaders see the AI as a supplement, not a replacement for the knowledge base.</li>
+          <li data-n="02"><strong>Faster scaling.</strong> The hybrid model allows us to scale AI to new product lines without manual accuracy review.</li>
+          <li data-n="03"><strong>Informed decisions.</strong> Governance has already prevented launching AI guidance on three evolving product areas.</li>
+          <li data-n="04"><strong>Precedent.</strong> This framework became the template for other Gen AI initiatives across Meta sales.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 04 / KEY LEARNINGS -->
+<section class="cs-section">
+  <div class="container">
+    <div class="cs-section__bar">
+      <span><span class="tick">▍</span> SECTION 04</span>
+      <span class="cs-section__bar-rule"></span>
+      <span>KEY LEARNINGS</span>
+    </div>
+    <div class="cs-learnings">
+      <div class="cs-learning">
+        <div class="cs-learning__num">01 / LEARNING</div>
+        <div class="cs-learning__title">AI is not a replacement for systems.</div>
+        <p class="cs-learning__body">A good AI tool is only as good as its underlying data. Invest in the source of truth first.</p>
+      </div>
+      <div class="cs-learning">
+        <div class="cs-learning__num">02 / LEARNING</div>
+        <div class="cs-learning__title">Speed vs. accuracy is a false choice.</div>
+        <p class="cs-learning__body">When you must choose between fast and wrong vs. slow and right, the third option is often "fast AND right, with transparency about trade-offs."</p>
+      </div>
+      <div class="cs-learning">
+        <div class="cs-learning__num">03 / LEARNING</div>
+        <div class="cs-learning__title">Governance matters for Gen AI.</div>
+        <p class="cs-learning__body">Without clear ownership of accuracy, bias, and updates, AI systems drift and fail silently. Cross-functional governance prevented that here.</p>
+      </div>
+      <div class="cs-learning">
+        <div class="cs-learning__num">04 / LEARNING</div>
+        <div class="cs-learning__title">Users want transparency.</div>
+        <p class="cs-learning__body">Reps don't mind AI-generated answers if they know the AI's confidence level and can access the source. Build trust through transparency.</p>
+      </div>
+    </div>
+
+    <div class="cs-grid" style="margin-top:48px;">
+      <div class="cs-grid__sticky">
+        <div class="cs-grid__sticky-num mono">▍</div>
+        <div class="cs-grid__sticky-label">Skills applied</div>
+      </div>
+      <div class="cs-chips">
+        <span class="cs-chip">AI INTEGRATION</span>
+        <span class="cs-chip">TECHNICAL TROUBLESHOOTING</span>
+        <span class="cs-chip">ENGINEERING PARTNERSHIP</span>
+        <span class="cs-chip">CROSS-FUNCTIONAL GOVERNANCE</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NEXT CASE -->
+<a class="next-case next-case--link" href="case-01-sales-hub.html">
+  <div class="next-case__bg" aria-hidden="true"></div>
+  <div class="next-case__inner">
+    <div>
+      <div class="next-case__eyebrow">NEXT CASE 03 <span class="slash" aria-hidden="true" style="width:5px;height:11px;background:var(--steel-2);"></span> META · 2023</div>
+      <div class="next-case__title">
+        Redesigning the sales hub <span class="serif">for 3,000</span> global reps.
+      </div>
+    </div>
+    <span class="next-case__cta">
+      READ CASE 03 <span class="arrow" aria-hidden="true">→</span>
+    </span>
+  </div>
+</a>
+
+</main>
+
+<!-- FOOTER -->
 <footer class="footer">
-  <div class="footer-content">
-    <div>
-      <h3>Bre Roz</h3>
-      <p style="font-size: 14px; opacity: .8; margin: 0;">Sales enablement, revenue operations, and productivity for B2B SaaS.</p>
+  <div class="footer__giant" aria-hidden="true">
+    <div class="footer__giant-track" id="footer-marquee"></div>
+  </div>
+  <div class="footer__cols">
+    <div class="footer__col footer__col--mark">
+      <div class="footer__mark">
+        <span>ROZ</span>
+        <span class="slash" aria-hidden="true" style="width:14px;height:28px;"></span>
+        <span>CO</span>
+      </div>
+      <p class="footer__tag">
+        GTM systems builder. Building the tools and infrastructure that
+        help sales teams operate at scale.
+      </p>
+      <p class="footer__mantra">The work shows itself.</p>
     </div>
-    <div>
-      <h4>Get in touch</h4>
-      <ul>
-        <li><a href="mailto:bre@breroz.com">bre@breroz.com</a></li>
-        <li><a href="https://linkedin.com/in/breroz" target="_blank" rel="noopener">LinkedIn</a></li>
+    <div class="footer__col">
+      <div class="eyebrow">GET IN TOUCH</div>
+      <ul class="footer__list">
+        <li><a href="mailto:hello@breroz.com">HELLO@BREROZ.COM <span aria-hidden="true">↗</span></a></li>
+        <li><a href="https://linkedin.com/in/breroz" target="_blank" rel="noopener noreferrer">LINKEDIN / BREROZ <span aria-hidden="true">↗</span></a></li>
+        <li><a href="assets/Bre_Roz_Resume.pdf" download>RESUME (PDF) <span aria-hidden="true">↓</span></a></li>
       </ul>
     </div>
-    <div>
-      <h4>More work</h4>
-      <ul>
-        <li><a href="case-03-video-repo.html">Case 01: Video platform</a></li>
-        <li><a href="case-01-sales-hub.html">Case 03: Sales hub</a></li>
-        <li><a href="index.html">Back to portfolio</a></li>
+    <div class="footer__col">
+      <div class="eyebrow">MORE WORK</div>
+      <ul class="footer__list">
+        <li><a href="case-03-video-repo.html">CASE 01 / VIDEO PLATFORM <span aria-hidden="true">→</span></a></li>
+        <li><a href="case-01-sales-hub.html">CASE 03 / SALES HUB <span aria-hidden="true">→</span></a></li>
+        <li><a href="index.html">BACK TO PORTFOLIO <span aria-hidden="true">↗</span></a></li>
       </ul>
     </div>
+    <div class="footer__col footer__col--avail">
+      <div class="footer__avail"><span class="tick">●</span> AVAILABLE<br/>MAY 2026</div>
+      <div class="footer__loc">AUSTIN, TX<br/>30.27, -97.74</div>
+    </div>
+  </div>
+  <div class="footer__base">
+    <span>© 2026 ROZ/CO</span>
+    <span class="footer__base-rule"></span>
+    <span>THE LOOP CONTINUES</span>
   </div>
 </footer>
 
+<script src="case.js?v=2"></script>
 </body>
 </html>
