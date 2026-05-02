@@ -259,11 +259,16 @@ img { display: block; max-width: 100%; }
   font-weight: 500;
   font-style: italic;
 }
-.cs-hero__h1-word { display: block; overflow: hidden; }
+.cs-hero__h1-word {
+  display: block;
+  overflow: hidden;
+  margin-bottom: -0.16em;
+}
 .cs-hero__h1-word > span {
   display: block;
   transform: translateY(105%);
   transition: transform 1.05s cubic-bezier(.2,.8,.2,1);
+  padding-bottom: 0.16em;
 }
 .cs-hero__h1.is-in .cs-hero__h1-word > span { transform: translateY(0); }
 

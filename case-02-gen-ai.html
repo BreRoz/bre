@@ -115,7 +115,7 @@
       <p>
         An internal LLM trained on older sales materials began serving answers that conflicted
         with current guidance. I partnered directly with the Gen AI engineering team to retrain
-        the model and shipped a hybrid linking approach that protected knowledge base integrity —
+        the model and shipped a hybrid linking approach that protected knowledge base integrity.
         <span class="cs-hero__hl">3.41%</span> of repo traffic now comes through AI, with
         <span class="cs-hero__hl">100%</span> integrity maintained.
       </p>
@@ -164,14 +164,14 @@
       <div class="cs-prose">
         <p>
           An internal LLM trained on older sales materials was serving answers that conflicted
-          with current guidance. Reps were following outdated advice — creating inconsistency
+          with current guidance. Reps were following outdated advice which created inconsistency
           in pitches and closing strategies. More critically, the AI's incorrect answers were
           undermining trust in the knowledge base itself: <em>if the AI said it, maybe the KB was wrong?</em>
         </p>
         <h3>The tension</h3>
         <ul class="cs-list" data-reveal>
           <li data-n="01"><strong>Speed vs. accuracy.</strong> The Gen AI team wanted to launch quickly to show value. Sales wanted perfect accuracy.</li>
-          <li data-n="02"><strong>Convenience vs. authority.</strong> AI is appealing for its speed. But in sales, authority matters — reps need to trust the source.</li>
+          <li data-n="02"><strong>Convenience vs. authority.</strong> AI is appealing for its speed. But in sales, authority matters. Reps need to trust the source.</li>
           <li data-n="03"><strong>Training data drift.</strong> The model was trained on Q2 materials. Q3 and Q4 updates never made it into retraining.</li>
         </ul>
       </div>
@@ -200,10 +200,10 @@
 
         <h3>Root cause analysis</h3>
         <ul class="cs-list" data-reveal>
-          <li data-n="01">Training data was <strong>4+ months old</strong> when launched.</li>
+          <li data-n="01">Training data was pulled from a <strong>multi-year old, abandoned source</strong> when launched.</li>
           <li data-n="02">Identified <strong>23 specific pieces of guidance</strong> where AI conflicted with current KB.</li>
           <li data-n="03">Conducted interviews with sales leaders to understand trust issues.</li>
-          <li data-n="04">Built a framework for how different content types should be handled — product specs vs. playbooks vs. objection handling.</li>
+          <li data-n="04">Built a framework for how different content types should be handled, product specs vs. playbooks vs. objection handling.</li>
         </ul>
 
         <div class="cs-quote" data-reveal>AI convenience, knowledge integrity intact.</div>
@@ -212,9 +212,9 @@
         <p>Instead of relying purely on AI-generated answers, we built a system where:</p>
         <ul class="cs-list" data-reveal>
           <li data-n="01"><strong>AI retrieves and summarizes,</strong> but every answer includes a link to the source material in the KB.</li>
-          <li data-n="02"><strong>High-confidence answers</strong> (product specs, pricing) are pre-vetted by Product before going into the training set.</li>
+          <li data-n="02"><strong>High-confidence answers</strong> (product details) are pre-vetted by Product before going into the training set.</li>
           <li data-n="03"><strong>Lower-confidence answers</strong> (strategy, playbooks) always suggest "read the full article" as a secondary action.</li>
-          <li data-n="04"><strong>Feedback loops</strong> flag when AI answers conflict with KB updates — triggering retraining.</li>
+          <li data-n="04"><strong>Feedback loops</strong> flag when AI answers conflict with KB updates, triggering retraining.</li>
           <li data-n="05"><strong>Transparency.</strong> The AI discloses its training date and confidence level in every answer.</li>
         </ul>
 
@@ -224,7 +224,6 @@
           <li data-n="02">Redesigned the training pipeline to include real-time KB updates.</li>
           <li data-n="03">Created a "source linking" feature so every AI answer cites back to KB articles.</li>
           <li data-n="04">Established a cross-functional governance model: <strong>Product</strong> owns accuracy, <strong>Sales</strong> owns use cases, <strong>Gen AI</strong> owns performance.</li>
-          <li data-n="05">Built monitoring dashboards to catch accuracy drift in real time.</li>
         </ul>
       </div>
     </div>
@@ -248,9 +247,8 @@
         <h3>Adoption &amp; engagement</h3>
         <ul class="cs-list" data-reveal>
           <li data-n="01"><strong>3.41%</strong> of overall KB traffic now comes through AI queries.</li>
-          <li data-n="02"><strong>45%</strong> of AI-answered questions result in a click-through to the full KB article — indicating legitimacy and deeper learning.</li>
-          <li data-n="03"><strong>Zero</strong> reported instances of AI providing information that conflicts with current KB guidance since launch.</li>
-          <li data-n="04">Reps report higher confidence in AI answers because they link back to source.</li>
+          <li data-n="02"><strong>Zero</strong> reported instances of AI providing information that conflicts with current KB guidance since launch.</li>
+          <li data-n="03">Reps report higher confidence in AI answers because they link back to source.</li>
         </ul>
         <h3>Business impact</h3>
         <ul class="cs-list" data-reveal>

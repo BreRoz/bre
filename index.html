@@ -188,11 +188,16 @@ img { display: block; max-width: 100%; }
   letter-spacing: -0.05em;
   color: var(--black);
 }
-.hero-flank__h1-word { display: block; overflow: hidden; }
+.hero-flank__h1-word {
+  display: block;
+  overflow: hidden;
+  margin-bottom: -0.16em;
+}
 .hero-flank__h1-word > span {
   display: block;
   transform: translateY(105%);
   transition: transform 1.1s cubic-bezier(.2,.8,.2,1);
+  padding-bottom: 0.16em;
 }
 .hero-flank__h1.is-in .hero-flank__h1-word > span { transform: translateY(0); }
 .hero-flank__h1-word:nth-child(2) > span {
@@ -1203,8 +1208,8 @@ a:focus-visible, button:focus-visible, input:focus-visible {
             <span>SEE THE WORK</span>
             <span class="cta__arrow" aria-hidden="true">→</span>
           </a>
-          <a class="cta cta--ghost" href="#loom">
-            <span class="cta__dot" aria-hidden="true"></span> WATCH INTRO · 2:00
+          <a class="cta cta--ghost" href="#loom" hidden>
+            <span class="cta__dot" aria-hidden="true"></span> WATCH INTRO · :40
           </a>
           <a class="cta cta--ghost" href="https://linkedin.com/in/breroz" target="_blank" rel="noopener noreferrer">
             LINKEDIN <span class="cta__arrow" aria-hidden="true">↗</span>
@@ -1446,8 +1451,8 @@ a:focus-visible, button:focus-visible, input:focus-visible {
         <h3 class="sq__title">Eyes on the block.</h3>
         <p class="sq__body">
           View crime data for any apartment or home in Austin using official public police records.
-          Make informed decisions before signing a lease — or just satisfy a bit of neighborhood
-          curiosity. Co-built with Matthew Bahrenburg.
+          Make informed decisions before signing a lease… or just satisfy a bit of neighborhood
+          curiosity. Co-built with <a href="https://www.linkedin.com/in/matthewbahrenburg/" target="_blank" rel="noopener noreferrer" style="border-bottom:1px solid currentColor;">Matthew Bahrenburg</a>.
         </p>
         <div class="sq__chips">
           <span>AUSTIN PD · OPEN DATA</span><span>·</span><span>NEXT.JS</span><span>·</span><span>POSTGRES</span>
@@ -1484,8 +1489,8 @@ a:focus-visible, button:focus-visible, input:focus-visible {
         <h3 class="sq__title">The finest deals, <span class="serif">curated.</span></h3>
         <p class="sq__body">
           Unsubscribe from all your promotional emails — get one instead. Every Thursday,
-          DealDossier scans 50+ promo emails and surfaces only the actual sales, across
-          fashion, beauty, home, tech and dining. Free. No paywall. Built solo.
+          DealDossier scans hundreds of promo emails and surfaces only the actual sales,
+          across fashion, beauty, home, tech and dining. Free. No paywall. Built solo.
         </p>
         <div class="sq__chips">
           <span>50+ INBOXES SCANNED</span><span>·</span><span>WEEKLY · THU 8AM CT</span>
@@ -1520,7 +1525,7 @@ a:focus-visible, button:focus-visible, input:focus-visible {
       <h2 class="ama__h2">Ask me <span class="serif">anything.</span></h2>
       <p class="ama__sub">
         Curious about my approach to GTM systems, the Meta work, or how I partner with engineering
-        and product? Ask my AI assistant — it knows my portfolio and answers in real time.
+        and product? Ask my AI assistant! It knows my portfolio and answers in real time.
       </p>
       <div class="ama__powered">POWERED BY CHATBASE
         <span class="slash" aria-hidden="true" style="width:5px;height:11px;"></span>
@@ -1612,7 +1617,7 @@ a:focus-visible, button:focus-visible, input:focus-visible {
           and why an AI-first company is where I want to focus next.
         </p>
         <div class="loom__meta">
-          <span>2 MIN</span><span>·</span><span>MAY 2026</span><span>·</span><span>UNLISTED</span>
+          <span>:40 SEC</span><span>·</span><span>MAY 2026</span><span>·</span><span>UNLISTED</span>
         </div>
       </div>
       <div class="loom__right">
@@ -1624,7 +1629,7 @@ a:focus-visible, button:focus-visible, input:focus-visible {
           <div class="loom__timeline">
             <span>00:00</span>
             <div class="loom__bar"><div class="loom__bar-fill"></div></div>
-            <span>02:00</span>
+            <span>00:40</span>
           </div>
         </div>
       </div>
