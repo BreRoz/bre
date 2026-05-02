@@ -461,6 +461,18 @@ img { display: block; max-width: 100%; }
     var(--bone-2);
 }
 .case__media-label { position: relative; z-index: 1; font-family: var(--f-mono); }
+.case__media-img {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform .9s cubic-bezier(.2,.8,.2,1), filter .25s;
+  will-change: transform;
+}
+.case__media-inner.is-hover .case__media-img {
+  transform: scale(1.04);
+  filter: contrast(1.04) saturate(1.04);
+}
 .case__media-hint {
   position: absolute; bottom: 12px; left: 12px;
   background: var(--black); color: var(--bone);
@@ -1299,8 +1311,7 @@ a:focus-visible, button:focus-visible, input:focus-visible {
       </div>
       <div class="case__media">
         <div class="case__media-inner" data-hover>
-          <span class="case__media-label">[ VIDEO PLATFORM · DEMO REEL ]</span>
-          <span class="case__media-hint" data-hover-hint>HOVER → PLAY</span>
+          <img class="case__media-img" src="assets/case-01-video-platform.png" alt="Internal sales video platform interface" loading="lazy" />
           <div class="case__media-scan"></div>
         </div>
         <div class="case__media-tag mono">
@@ -1345,8 +1356,7 @@ a:focus-visible, button:focus-visible, input:focus-visible {
       </div>
       <div class="case__media">
         <div class="case__media-inner" data-hover>
-          <span class="case__media-label">[ RETRIEVAL FLOW · DIAGRAM ]</span>
-          <span class="case__media-hint" data-hover-hint>HOVER → PLAY</span>
+          <img class="case__media-img" src="assets/case-02-gen-ai.png" alt="Gen AI knowledge base integration" loading="lazy" />
           <div class="case__media-scan"></div>
         </div>
         <div class="case__media-tag mono">
@@ -1386,8 +1396,7 @@ a:focus-visible, button:focus-visible, input:focus-visible {
       </div>
       <div class="case__media">
         <div class="case__media-inner" data-hover>
-          <span class="case__media-label">[ SALES HUB · BEFORE/AFTER ]</span>
-          <span class="case__media-hint" data-hover-hint>HOVER → PLAY</span>
+          <img class="case__media-img" src="assets/case-03-sales-hub.png" alt="Sales enablement platform redesign" loading="lazy" />
           <div class="case__media-scan"></div>
         </div>
         <div class="case__media-tag mono">
