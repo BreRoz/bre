@@ -116,6 +116,9 @@ img { display: block; max-width: 100%; }
   transition: background .2s, color .2s;
 }
 .nav__cta:hover { background: var(--black); color: var(--bone); }
+.nav__right { display: flex; align-items: center; gap: 10px; }
+.nav__cta--alt { background: var(--accent); border-color: var(--accent); color: var(--bone); }
+.nav__cta--alt:hover { background: var(--black); border-color: var(--black); color: var(--bone); }
 .nav__progress {
   height: 1px; background: var(--accent);
   transform: scaleX(0);
