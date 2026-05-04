@@ -1048,9 +1048,12 @@ img { display: block; max-width: 100%; }
   .hero-flank__portrait-frame { max-height: none; padding: 8px; }
   .hero-flank__dash { padding: 0 20px 24px; }
   .hero__dash-head { font-size: 10px; padding: 10px 12px; gap: 10px; flex-wrap: wrap; }
-  .receipt { padding: 20px 16px 18px; min-height: 140px; }
-  .receipt__num { font-size: clamp(32px, 9vw, 44px); }
-  .receipt__label { font-size: 12px; }
+  /* Stack receipts to one column on phones — same numbers, more readable */
+  .hero__dash-grid { grid-template-columns: 1fr; }
+  .receipt { padding: 22px 18px; min-height: 140px; border-right: none; border-bottom: var(--hairline); }
+  .receipt:last-child { border-bottom: none; }
+  .receipt__num { font-size: clamp(36px, 11vw, 52px); }
+  .receipt__label { font-size: 13px; }
   .hero-marquee__word { font-size: 32px; gap: 20px; }
   .ticker { padding: 14px 0; }
   .ticker__track { font-size: 12px; gap: 24px; }

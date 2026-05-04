@@ -736,6 +736,11 @@ img { display: block; max-width: 100%; }
   .container, .container--narrow { padding: 0 20px; }
   .nav__inner { height: 56px; }
   .nav__mark { font-size: 17px; }
+  /* Receipts: stack to one column on phones so any count (2/3/4) reads cleanly */
+  .cs-dash__grid { grid-template-columns: 1fr !important; }
+  .receipt { border-right: none !important; border-bottom: var(--hairline) !important; min-height: 140px; padding: 22px 18px; }
+  .receipt:last-child { border-bottom: none !important; }
+  .receipt__num { font-size: clamp(36px, 11vw, 52px); }
   .crumb { padding: 72px 0 12px; }
   .crumb__inner { font-size: 10px; gap: 10px; flex-wrap: wrap; }
   .crumb__filler { display: none; }
