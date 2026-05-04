@@ -1077,11 +1077,14 @@ img { display: block; max-width: 100%; }
   .sq__title { font-size: clamp(32px, 9vw, 44px); }
   .sq__body { font-size: 15px; }
   .sq__chips { font-size: 10px; gap: 6px; }
-  .phone { width: 160px; padding: 6px 6px; border-radius: 24px; }
-  .phone__notch { width: 44px; height: 4px; }
-  .phone__screen { border-radius: 18px; }
-  .phone--2 { margin-left: -20px; transform: translateY(14px); }
-  .sq__phones--right .phone--1 { margin-left: -20px; }
+  /* Side quest phones: shrink + tighten gap so the overlapping pair (with
+     1deg rotation slack) fits inside the row even at 320px viewports. */
+  .sq__phones { gap: 14px; max-width: 100%; }
+  .phone { width: 130px; padding: 5px 5px; border-radius: 22px; }
+  .phone__notch { width: 36px; height: 4px; }
+  .phone__screen { border-radius: 16px; }
+  .phone--2 { margin-left: -18px; transform: translateY(10px); }
+  .sq__phones--right .phone--1 { margin-left: -18px; }
   .ama { padding: 64px 0; }
   .ama__grid { gap: 32px; }
   .ama__h2 { font-size: clamp(36px, 10vw, 52px); }
@@ -1663,7 +1666,7 @@ a:focus-visible, button:focus-visible, input:focus-visible {
     <div class="footer__col">
       <div class="eyebrow">GET IN TOUCH</div>
       <ul class="footer__list">
-        <li><a href="mailto:hello@breroz.com">HELLO@BREROZ.COM <span aria-hidden="true">↗</span></a></li>
+        <li><a href="mailto:bre@breroz.com">BRE@BREROZ.COM <span aria-hidden="true">↗</span></a></li>
         <li><a href="https://linkedin.com/in/breroz" target="_blank" rel="noopener noreferrer">LINKEDIN / BREROZ <span aria-hidden="true">↗</span></a></li>
         <li><a href="assets/Bre_Roz_Resume.pdf" download>RESUME (PDF) <span aria-hidden="true">↓</span></a></li>
       </ul>
