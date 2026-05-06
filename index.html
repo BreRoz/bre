@@ -670,6 +670,59 @@ img { display: block; max-width: 100%; }
   100% { transform: translateY(8px) rotate(-1deg); }
 }
 
+/* Floating computer (single laptop-style frame) */
+.sq__computer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+.computer {
+  width: 100%;
+  max-width: 560px;
+  border-radius: 14px;
+  border: 2px solid var(--steel-2);
+  background: var(--bone-2);
+  padding: 8px 8px 0;
+  position: relative;
+  filter: drop-shadow(0 24px 40px rgba(0,0,0,.6));
+  animation: float-c 6s ease-in-out infinite alternate;
+}
+.computer__bar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 8px 8px;
+}
+.computer__dot {
+  width: 9px; height: 9px;
+  border-radius: 50%;
+  background: var(--steel);
+}
+.computer__screen {
+  border-radius: 6px;
+  overflow: hidden;
+  background: var(--black);
+  aspect-ratio: 16 / 10;
+}
+.computer__screen img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  display: block;
+}
+.computer__base {
+  width: 55%;
+  height: 8px;
+  background: var(--steel-2);
+  border-radius: 0 0 10px 10px;
+  margin: 0 auto;
+}
+@keyframes float-c {
+  0% { transform: translateY(-5px) rotate(-0.6deg); }
+  100% { transform: translateY(5px) rotate(0.6deg); }
+}
+
 /* ─────────── AMA ─────────── */
 .ama { padding: 120px 0; }
 .ama__grid {
@@ -1094,6 +1147,9 @@ img { display: block; max-width: 100%; }
   .phone__screen { border-radius: 16px; }
   .phone--2 { margin-left: -18px; transform: translateY(10px); }
   .sq__phones--right .phone--1 { margin-left: -18px; }
+  .computer { max-width: 100%; border-radius: 10px; padding: 6px 6px 0; }
+  .computer__dot { width: 7px; height: 7px; }
+  .computer__base { width: 45%; height: 6px; }
   .ama { padding: 64px 0; }
   .ama__grid { gap: 32px; }
   .ama__h2 { font-size: clamp(36px, 10vw, 52px); }
@@ -1126,6 +1182,7 @@ img { display: block; max-width: 100%; }
   .ticker__track,
   .footer__giant-track { animation: none !important; }
   .phone--1, .phone--2 { animation: none !important; transform: none !important; }
+  .computer { animation: none !important; transform: none !important; }
   .hero-flank__h1-word > span { transform: translateY(0) !important; transition: none !important; }
   .case__media-scan { animation: none !important; }
   .cta__dot, .footer__avail .tick, .hero-flank__meta .tick, .terminal__caret { animation: none !important; }
@@ -1525,6 +1582,42 @@ a:focus-visible, button:focus-visible, input:focus-visible {
           <div class="phone__screen">
             <img src="assets/dealdossier-home.png" alt="DealDossier home" />
           </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sq__row sq__row--dark">
+      <div class="sq__copy">
+        <div class="sq__brand mono">
+          <span>ROZ</span>
+          <span class="slash" aria-hidden="true" style="width:9px;height:18px;"></span>
+          <span>CO</span>
+          <span class="sq__brand-divider">/</span>
+          <span class="sq__brand-product">HANTAVIRUS TRACKER</span>
+        </div>
+        <h3 class="sq__title">Eyes on the <span class="serif">outbreak.</span></h3>
+        <p class="sq__body">
+          A live dashboard for tracking hantavirus cases worldwide — global outbreak map,
+          alerts feed, and a terminal-green aesthetic to match the dread.
+        </p>
+        <div class="sq__chips">
+          <span>GLOBAL OUTBREAK MAP</span><span>·</span><span>LIVE ALERTS</span><span>·</span><span>REPLIT</span>
+        </div>
+        <a class="cta cta--primary cta--dark" href="https://hantavirus.replit.app/" target="_blank" rel="noopener noreferrer">
+          <span>EXPLORE HANTAVIRUS TRACKER</span><span class="cta__arrow" aria-hidden="true">→</span>
+        </a>
+      </div>
+      <div class="sq__computer">
+        <div class="computer">
+          <div class="computer__bar">
+            <span class="computer__dot"></span>
+            <span class="computer__dot"></span>
+            <span class="computer__dot"></span>
+          </div>
+          <div class="computer__screen">
+            <img src="assets/hantavirus-tracker.png" alt="Hantavirus Tracker dashboard" />
+          </div>
+          <div class="computer__base"></div>
         </div>
       </div>
     </div>
